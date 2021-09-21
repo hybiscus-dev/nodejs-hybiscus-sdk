@@ -1,6 +1,7 @@
 import { ComponentExtendable, IComponentDefinition } from "../base";
 import { WidthType } from "../types";
 
+
 class Row extends ComponentExtendable {
     width: WidthType;
     columns: number | null;
