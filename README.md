@@ -13,6 +13,9 @@
 # 🌺 Hybiscus SDK (NodeJS)
 > NodeJS SDK for interacting with the Hybiscus API
 
+## 🪛 Requirements
+- NodeJS 12.X or newer
+
 ## 🛠 Installation
 The library can be installed via `npm` as follows:
 
@@ -22,6 +25,8 @@ $   npm install @hybiscus/web-api
 
 ## 🚀 Usage
 The NodeJS SDK provides a declarative API for building up the report and the components inside it. Below is a simple example to get you started:
+
+> **Note** To use the Hybiscus API, you require an API key which you can get by signing up at [https://hybiscus.dev/signup](https://hybiscus.dev/signup) with a **Forever Free** plan. For more details on plans, see [here](https://hybiscus.dev/plans).
 
 ```js
 const { HybiscusClient, Report, Components } = require("@hybiscus/web-api");
@@ -53,3 +58,6 @@ client
     })
     .catch((error) => console.error(error));
 ```
+
+---
+&copy; 2021, Hybiscus
