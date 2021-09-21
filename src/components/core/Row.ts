@@ -6,7 +6,7 @@ class Row extends ComponentExtendable {
     columns: number | null;
 
     /**
-     * 
+     * Row constructor
      * @param config Component config
      * @param config.width Width of the row
      * @param config.columns Number of columns to divide the section into
