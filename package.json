@@ -5,6 +5,7 @@
   "main": "index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "start": "npx tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
     "build": "rm -rf ./lib/* && tsc"

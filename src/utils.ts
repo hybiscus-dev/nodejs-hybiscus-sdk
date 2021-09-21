@@ -11,8 +11,14 @@ interface ITaskStatusResponse {
     errorMessage: string | null;
 }
 
+/**
+ * Submits a report task to the Hybiscus API for processing
+ * @param reportSchema Report schema
+ * @param apiKey API key
+ * @returns The task ID and task status
+ */
 const submitBuildReportJob = async (
-    reportDefinition: IReportDefinition,
+    reportSchema: IReportDefinition,
     apiKey: string
 ): Promise<IBuildReportResponse> => {
     let response;
@@ -20,7 +26,7 @@ const submitBuildReportJob = async (
         response = await axios.post(
             `https://api.hybiscus.dev/api/v1/build-report`,
             {
-                ...reportDefinition,
+                ...reportSchema,
             },
             {
                 headers: {
@@ -41,6 +47,12 @@ const submitBuildReportJob = async (
     };
 };
 
+/**
+ * Gets the task status for the task ID
+ * @param taskID Task ID to check
+ * @param apiKey API key
+ * @returns Task status and any error message if task has failed
+ */
 const getTaskStatus = async (
     taskID: string,
     apiKey: string
@@ -69,6 +81,13 @@ const getTaskStatus = async (
     }
 };
 
+/**
+ * Returns a Promise that only resolves once the task reaches SUCCESS status or
+ * FAILED status.
+ * @param taskID Task ID to check
+ * @param apiKey API key
+ * @returns Task status and any error message if task fails
+ */
 const waitForTaskSuccess = async (
     taskID: string,
     apiKey: string

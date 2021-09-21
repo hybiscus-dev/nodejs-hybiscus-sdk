@@ -1,4 +1,4 @@
-import { Report } from "./Report";
+import { IReportDefinition, Report } from "./Report";
 import {
     getTaskStatus,
     submitBuildReportJob,
@@ -12,18 +12,30 @@ interface IPDFReport {
     errorMessage: string | null;
 }
 
-export default class HybiscusClient {
+class HybiscusClient {
     apiKey: string;
 
     constructor(apiKey: string) {
         this.apiKey = apiKey;
     }
 
-    async buildReport(report: Report): Promise<IPDFReport> {
+    async buildReport({
+        report = null,
+        reportSchema = null,
+    }: {
+        report: Report | null;
+        reportSchema: IReportDefinition | null;
+    }): Promise<IPDFReport> {
         let status, taskID, errorMessage;
+        let reportDefinition: IReportDefinition = {} as IReportDefinition;
+        if (report !== null) {
+            reportDefinition = report.getDefinition();
+        } else if (reportSchema !== null) {
+            reportDefinition = reportSchema;
+        }
         {
             const response = await submitBuildReportJob(
-                report.getDefinition(),
+                reportDefinition,
                 this.apiKey
             );
             status = response.status;
@@ -57,7 +69,7 @@ export default class HybiscusClient {
                     taskID,
                     status: "FAILED",
                     errorMessage,
-                }; 
+                };
             }
         } else {
             return {
@@ -65,7 +77,9 @@ export default class HybiscusClient {
                 taskID,
                 status: "FAILED",
                 errorMessage: errorMessage || null,
-            }; 
+            };
         }
     }
 }
+
+export { HybiscusClient };

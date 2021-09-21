@@ -4,39 +4,39 @@
  */
 
 interface IComponentDefinition {
-    type: string,
-    options: Record<string, unknown>,
-    components?: Array<IComponentDefinition>
+    type: string;
+    options: Record<string, unknown>;
+    components?: Array<IComponentDefinition>;
 }
-
 
 abstract class Component {
     type: string;
 
     /**
-     * Constructor for Components
-     * @param type The component type
+     * Constructor for the component
+     * @param config
+     * @param config.type - Component type
      */
-    constructor(type: string) {
+    constructor({ type }: { type: string }) {
         this.type = type;
     }
 
     abstract getDefinition(): IComponentDefinition;
 }
 
-
 class ComponentExtendable extends Component {
     components: Component[];
 
     /**
-     * Constructor for Components
-     * @param type The component type
+     * Constructor for ComponentExtendable
+     * @param config
+     * @param config.type - Component type
      */
-    constructor(type: string) {
-        super(type);
+    constructor({ type }: { type: string }) {
+        super({ type });
         this.components = [];
     }
-    
+
     /**
      * Generates the schema definition for the Component
      * @returns The Component schema definition
@@ -45,7 +45,7 @@ class ComponentExtendable extends Component {
         return {
             type: this.type,
             options: {},
-            components: []
+            components: [],
         };
     }
 
