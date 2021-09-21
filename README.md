@@ -1,12 +1,12 @@
-<p style="text-align: center;">
+<div align="center">
     <a href="https://hybiscus.dev">
-    <img width="40%" src="https://hybiscus.dev/public/img/Wordmark.svg" />
+    <img width="40%" src="https://hybiscus.dev/public/img/Wordmark.svg" alt="Hybiscus logo"/>
     </a>
-</p>
+</div>
 
-<p style="text-align: center;">
+<div align="center">
     Hybiscus is a cloud based service for building PDF reports using pre-designed components that look impressive without any effort. Simply define the content using a simple JSON API and get a PDF in return in a matter of seconds.
-</p>
+</div>
 
 ---
 
