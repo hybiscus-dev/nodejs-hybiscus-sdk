@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
     "build": "rm -rf ./lib/* && tsc",
-    "doc": "npm run build && jsdoc -r lib -d docs"
+    "doc": "npm run build && rm -rf docs/* && jsdoc -r lib -d docs"
   },
   "repository": {
     "type": "git",

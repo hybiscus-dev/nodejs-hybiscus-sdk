@@ -1,3 +1,8 @@
+/**
+ * @module Client HybiscusClient for API calls
+ */
+
+
 import { IReportDefinition, Report } from "./Report";
 import {
     getTaskStatus,
@@ -15,10 +20,21 @@ interface IPDFReport {
 class HybiscusClient {
     apiKey: string;
 
+    /**
+     * Constructor for HybiscusClient
+     * @param apiKey API key for Hybiscus API
+     */
     constructor(apiKey: string) {
         this.apiKey = apiKey;
     }
 
+    /**
+     * 
+     * @param config Configuration for the client
+     * @param config.report Instance of Report class
+     * @param config.reportSchema Manually generated report schema
+     * @returns Promise that resolves to the PDF report URL
+     */
     async buildReport({
         report = null,
         reportSchema = null,
