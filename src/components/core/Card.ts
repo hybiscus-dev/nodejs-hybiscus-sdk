@@ -1,8 +1,8 @@
-import { ComponentExtendable, IComponentDefinition } from "../base";
+import { Component, IComponentDefinition } from "../base";
 import { WidthType } from "../types";
 
 
-class Card extends ComponentExtendable {
+class Card extends Component {
     title: string;
     value: string | number;
     units: string;

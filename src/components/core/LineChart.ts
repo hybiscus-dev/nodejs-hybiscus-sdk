@@ -1,8 +1,8 @@
-import { ComponentExtendable, IComponentDefinition } from "../base";
+import { Component, IComponentDefinition } from "../base";
 import { WidthType, IData } from "../types";
 
 
-class LineChart extends ComponentExtendable {
+class LineChart extends Component {
     data: Array<IData>;
     xLabel: string;
     yLabel: string;

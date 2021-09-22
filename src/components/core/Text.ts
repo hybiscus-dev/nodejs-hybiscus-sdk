@@ -1,8 +1,8 @@
-import { ComponentExtendable, IComponentDefinition } from "../base";
+import { Component, IComponentDefinition } from "../base";
 import { WidthType } from "../types";
 
 
-class Text extends ComponentExtendable {
+class Text extends Component {
     text: string;
     width: WidthType;
 

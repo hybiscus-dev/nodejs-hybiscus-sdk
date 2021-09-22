@@ -1,8 +1,3 @@
-/**
- * @module BaseComponents
- * Base component abstract classes
- */
-
 interface IComponentDefinition {
     type: string;
     options: Record<string, unknown>;

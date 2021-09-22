@@ -1,8 +1,8 @@
-import { ComponentExtendable, IComponentDefinition } from "../base";
+import { Component, IComponentDefinition } from "../base";
 import { WidthType, IData } from "../types";
 
 
-class BarChart extends ComponentExtendable {
+class BarChart extends Component {
     data: Array<IData>;
     xLabel: string;
     yLabel: string;

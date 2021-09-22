@@ -1,8 +1,8 @@
-import { ComponentExtendable, IComponentDefinition } from "../base";
+import { Component, IComponentDefinition } from "../base";
 import { WidthType } from "../types";
 
 
-class Image extends ComponentExtendable {
+class Image extends Component {
     imageURL: string | null;
     base64: string | null;
     base64Extension: string;

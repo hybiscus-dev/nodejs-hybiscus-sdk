@@ -1,6 +1,6 @@
-import { ComponentExtendable, IComponentDefinition } from "../base";
+import { Component, IComponentDefinition } from "../base";
 
-class Table extends ComponentExtendable {
+class Table extends Component {
     title: string | null;
     headings: Array<string>;
     rows: Array<Array<string>>;
