@@ -40,8 +40,7 @@ class Table extends Component {
                 headings: this.headings,
                 rows: this.rows,
                 striped: this.striped,
-            },
-            components: this.components.map((c) => c.getDefinition()),
+            }
         };
     }
 }

@@ -39,8 +39,8 @@ class HybiscusClient {
         report = null,
         reportSchema = null,
     }: {
-        report: Report | null;
-        reportSchema: IReportDefinition | null;
+        report?: Report | null;
+        reportSchema?: IReportDefinition | null;
     }): Promise<IPDFReport> {
         let status, taskID, errorMessage;
         let reportDefinition: IReportDefinition = {} as IReportDefinition;

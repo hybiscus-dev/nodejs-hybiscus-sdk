@@ -17,7 +17,7 @@ class Text extends Component {
         width = null,
     }: {
         text: string;
-        width: WidthType;
+        width?: WidthType;
     }) {
         super({ type: "Text" });
         this.text = text;
@@ -30,8 +30,7 @@ class Text extends Component {
             options: {
                 text: this.text,
                 width: this.width,
-            },
-            components: this.components.map((c) => c.getDefinition()),
+            }
         };
     }
 }

@@ -42,10 +42,10 @@ class Report {
         },
     }: {
         reportTitle: string;
-        reportByline: string;
-        versionNumber: string;
-        nPages: number;
-        reportConfig: IReportConfig;
+        reportByline?: string;
+        versionNumber?: string;
+        nPages?: number;
+        reportConfig?: IReportConfig;
     }) {
         this.reportTitle = reportTitle;
         this.reportByline = reportByline;
@@ -60,16 +60,18 @@ class Report {
      * Adds a component to the report
      * @param component Component to add
      */
-    addComponent(component: Component): void {
+    addComponent(component: Component): Report {
         this.components.push(component);
+        return this;
     }
 
     /**
      * Adds multiple components to the report
      * @param components Components to add to the report
      */
-    addComponents(components: Array<Component>): void {
+    addComponents(components: Array<Component>): Report {
         this.components.push(...components);
+        return this;
     }
     
     getDefinition(): IReportDefinition {

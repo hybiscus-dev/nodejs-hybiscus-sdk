@@ -42,8 +42,7 @@ class Image extends Component {
                 base64: this.base64,
                 base64_extension: this.base64Extension,
                 width: this.width,
-            },
-            components: this.components.map((c) => c.getDefinition()),
+            }
         };
     }
 }

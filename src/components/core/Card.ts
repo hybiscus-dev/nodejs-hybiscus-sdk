@@ -54,8 +54,7 @@ class Card extends Component {
                 icon: this.icon,
                 width: this.width,
                 highlighted: this.highlighted,
-            },
-            components: this.components.map((c) => c.getDefinition()),
+            }
         };
     }
 }

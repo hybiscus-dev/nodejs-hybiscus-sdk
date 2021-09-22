@@ -61,8 +61,7 @@ class LineChart extends Component {
                 chart_title: this.chartTitle,
                 caption: this.caption,
                 width: this.width,
-            },
-            components: this.components.map((c) => c.getDefinition()),
+            }
         };
     }
 }
