@@ -14,7 +14,7 @@ class Text extends ComponentExtendable {
      */
     constructor({
         text,
-        width,
+        width = null,
     }: {
         text: string;
         width: WidthType;

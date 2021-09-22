@@ -25,8 +25,8 @@ class Card extends ComponentExtendable {
         value,
         units,
         icon,
-        width,
-        highlighted,
+        width = null,
+        highlighted = false,
     }: {
         title: string;
         value: string | number;
