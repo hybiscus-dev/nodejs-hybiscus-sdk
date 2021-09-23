@@ -13,7 +13,7 @@ import {
 interface IPDFReport {
     url: string | null;
     taskID: string | null;
-    status: "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED";
+    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED";
     errorMessage: string | null;
 }
 
