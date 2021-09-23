@@ -2,9 +2,8 @@ name: Node.js CI
 
 on:
     push:
-        branches:
-          - main
-          - dev
+        tags:
+          - v*
     pull_request:
         branches:
           - main
@@ -20,6 +19,10 @@ jobs:
 
         steps:
             - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                node-version: '12.x'
+                registry-url: 'https://registry.npmjs.org'
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v2
               with:
@@ -29,3 +32,6 @@ jobs:
             - run: npm run build --if-present
             - run: npm run lint
             - run: npm test
+            - run: npm publish --access public
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
