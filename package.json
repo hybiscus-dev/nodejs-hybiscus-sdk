@@ -2,7 +2,7 @@
   "name": "@hybiscus/web-api",
   "version": "0.1.0",
   "description": "Javascript client for interacting with Hybiscus PDF API",
-  "main": "index.js",
+  "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "start": "npx tsc --watch",
