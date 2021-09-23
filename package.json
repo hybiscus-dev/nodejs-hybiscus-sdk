@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hybiscus-dev/pdf-api.git"
+    "url": "git+https://github.com/hybiscus-dev/nodejs-hybiscus-sdk.git"
   },
   "keywords": [
     "pdf",
@@ -26,9 +26,9 @@
   "author": "ismailuddin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hybiscus-dev/pdf-api/issues"
+    "url": "https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/issues"
   },
-  "homepage": "https://github.com/hybiscus-dev/pdf-api#readme",
+  "homepage": "https://github.com/hybiscus-dev/nodejs-hybiscus-sdk#readme",
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
