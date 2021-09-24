@@ -11,9 +11,11 @@
 ---
 
 # 🌺 Hybiscus SDK (NodeJS)
-![CI workflow](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/actions/workflows/ci.yml/badge.svg)
 ![](https://img.shields.io/github/stars/hybiscus-dev/nodejs-hybiscus-sdk?style=social)
+![CI workflow](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/actions/workflows/ci.yml/badge.svg)
 ![](https://img.shields.io/github/license/hybiscus-dev/nodejs-hybiscus-sdk)
+![](https://img.shields.io/npm/dm/@hybiscus/web-api)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/hybiscus-dev/nodejs-hybiscus-sdk)
 > NodeJS SDK for interacting with the Hybiscus API
 
 ## 🪛 Requirements
