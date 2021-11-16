@@ -83,7 +83,7 @@ class Report {
                 version_number: this.versionNumber,
             },
             config: {
-                n_pages: 1,
+                n_pages: this.nPages,
                 colour_theme: this.reportConfig.colourTheme,
                 typography_theme: this.reportConfig.typographyTheme,
                 override_colour_theme: this.reportConfig.overrideColourTheme,
