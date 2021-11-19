@@ -1,4 +1,4 @@
-{
+{ 
   "name": "@hybiscus/web-api",
   "version": "0.2.1",
   "description": "Javascript client for interacting with Hybiscus PDF API",
