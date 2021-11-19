@@ -5,6 +5,7 @@
         "include": [
             "lib/Client.js",
             "lib/Report.js",
+            "lib/HttpTransport.js",
             "lib/utils.js",
             "lib/components/core/index.js"
         ],
