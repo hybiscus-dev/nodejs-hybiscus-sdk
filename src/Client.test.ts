@@ -1,7 +1,8 @@
 import { Report, Components, HybiscusClient } from "./index";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 jest.mock('cross-fetch', () => require('fetch-mock-jest').sandbox())
-const fetchMock = require('cross-fetch')
+import fetchMock from 'cross-fetch'
 
 afterEach(() => {
     fetchMock.mockReset();
