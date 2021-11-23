@@ -2,14 +2,8 @@
  * @module Client HybiscusClient for API calls
  */
 
-
 import { IReportDefinition, Report } from "./Report";
-import {
-    getTaskStatus,
-    submitBuildReportJob,
-    submitPreviewReportJob,
-    waitForTaskSuccess,
-} from "./utils";
+import { HttpTransport } from "./HttpTransport";
 
 interface IPDFReport {
     url: string | null;
@@ -19,13 +13,16 @@ interface IPDFReport {
 }
 
 class HybiscusClient {
+    api: HttpTransport;
     apiKey: string;
 
     /**
      * Constructor for HybiscusClient
      * @param apiKey API key for Hybiscus API
+     * @param fetchInstance Optional user-provided fetch instance
      */
-    constructor(apiKey: string) {
+    constructor(apiKey: string, fetchInstance?: Function) {
+        this.api = new HttpTransport(apiKey, fetchInstance);
         this.apiKey = apiKey;
     }
 
@@ -51,15 +48,12 @@ class HybiscusClient {
             reportDefinition = reportSchema;
         }
         {
-            const response = await submitBuildReportJob(
-                reportDefinition,
-                this.apiKey
-            );
+            const response = await this.api.submitBuildReportJob(reportDefinition);
             status = response.status;
             taskID = response.taskID;
         }
         if (taskID !== null) {
-            const response = await getTaskStatus(taskID, this.apiKey);
+            const response = await this.api.getTaskStatus(taskID);
             status = response?.status;
             errorMessage = response?.errorMessage;
             if (status === "FAILED") {
@@ -71,7 +65,7 @@ class HybiscusClient {
                 };
             }
             try {
-                const response = await waitForTaskSuccess(taskID, this.apiKey);
+                const response = await this.api.waitForTaskSuccess(taskID);
                 status = response?.status;
                 errorMessage = response?.errorMessage;
                 return {
@@ -121,15 +115,12 @@ class HybiscusClient {
             reportDefinition = reportSchema;
         }
         {
-            const response = await submitPreviewReportJob(
-                reportDefinition,
-                this.apiKey
-            );
+            const response = await this.api.submitPreviewReportJob(reportDefinition);
             status = response.status;
             taskID = response.taskID;
         }
         if (taskID !== null) {
-            const response = await getTaskStatus(taskID, this.apiKey);
+            const response = await this.api.getTaskStatus(taskID);
             status = response?.status;
             errorMessage = response?.errorMessage;
             if (status === "FAILED") {
@@ -141,7 +132,7 @@ class HybiscusClient {
                 };
             }
             try {
-                const response = await waitForTaskSuccess(taskID, this.apiKey);
+                const response = await this.api.waitForTaskSuccess(taskID);
                 status = response?.status;
                 errorMessage = response?.errorMessage;
                 return {
