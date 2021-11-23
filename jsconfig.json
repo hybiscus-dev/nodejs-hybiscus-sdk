@@ -5,7 +5,7 @@
         "include": [
             "lib/Client.js",
             "lib/Report.js",
-            "lib/utils.js",
+            "lib/HttpTransport.js",
             "lib/components/core/index.js"
         ],
         "includePattern": ".+\\.js(doc|x)?$",

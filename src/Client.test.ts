@@ -1,9 +1,12 @@
-import axios from "axios";
 import { Report, Components, HybiscusClient } from "./index";
 
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+jest.mock('cross-fetch', () => require('fetch-mock-jest').sandbox())
+import fetchMock from 'cross-fetch'
 
-jest.mock("axios");
+afterEach(() => {
+    fetchMock.mockReset();
+})
 
 test("Build PDF report", async () => {
     const apiKey = "P09U8Y7G";
@@ -25,10 +28,11 @@ test("Build PDF report", async () => {
         reportTitle: "Report title",
         reportByline: "Report byline",
     }).addComponent(new Components.Text({ text: "Text component" }));
-    mockedAxios.post.mockResolvedValue(postResponse);
-    mockedAxios.get.mockResolvedValue(getResponse);
+    fetchMock.post('https://api.hybiscus.dev/api/v1/build-report', postResponse)
+    fetchMock.post('https://api.hybiscus.dev/api/v1/get-task-status', getResponse)
     const result = await client.buildReport({ report });
-    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(fetchMock).toHaveFetched('https://api.hybiscus.dev/api/v1/build-report');
+    expect(fetchMock).toHaveFetched('https://api.hybiscus.dev/api/v1/get-task-status');
     expect(result).toStrictEqual({
         taskID: getResponse.data.task_id,
         status: "SUCCESS",
@@ -57,10 +61,11 @@ test("Preview PDF report", async () => {
         reportTitle: "Report title",
         reportByline: "Report byline",
     }).addComponent(new Components.Text({ text: "Text component" }));
-    mockedAxios.post.mockResolvedValue(postResponse);
-    mockedAxios.get.mockResolvedValue(getResponse);
+    fetchMock.post('https://api.hybiscus.dev/api/v1/preview-report', postResponse)
+    fetchMock.post('https://api.hybiscus.dev/api/v1/get-task-status', getResponse)
     const result = await client.previewReport({ report });
-    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(fetchMock).toHaveFetched('https://api.hybiscus.dev/api/v1/preview-report');
+    expect(fetchMock).toHaveFetched('https://api.hybiscus.dev/api/v1/get-task-status');
     expect(result).toStrictEqual({
         taskID: getResponse.data.task_id,
         status: "SUCCESS",
