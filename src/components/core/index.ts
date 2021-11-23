@@ -7,3 +7,4 @@ export { Text } from "./Text";
 export { LineChart } from "./LineChart";
 export { BarChart } from "./BarChart";
 export { ScatterChart } from "./ScatterChart";
+export { PageBreak } from "./PageBreak";
