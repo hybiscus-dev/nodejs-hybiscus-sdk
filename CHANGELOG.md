@@ -1,3 +1,7 @@
+# v0.2.2
+- Add new `ScatterChart` component
+- Add new `Spacer` component
+- Add new `PageBreak` component
 # v0.2.1
 - Fix bug with `nPages` argument passed to constructor of `Report` not being
   used in `getDefinition` method of `Report`.
