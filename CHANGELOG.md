@@ -1,3 +1,6 @@
+# v0.2.3
+- `axios` HTTP client replaced with `cross-fetch` client to solve issues with using SDK in Cloudflare workers. Closes issue #2 (PR #7).
+- Support for overriding fetch instance with alternative HTTP client such as axios
 # v0.2.2
 - Add new `ScatterChart` component
 - Add new `Spacer` component
