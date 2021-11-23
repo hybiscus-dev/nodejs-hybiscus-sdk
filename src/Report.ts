@@ -53,6 +53,7 @@ class Report {
         this.nPages = nPages;
         this.reportConfig = reportConfig;
         this.components = [];
+
         return this;
     }
 
