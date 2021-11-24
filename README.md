@@ -131,11 +131,11 @@ client
 ```
 
 ### Using a custom HTTP client
-A custom HTTP client such as `axios` can be used to replace the default `cross-fetch` HTTP client, by passing an instance of it to as the second argument of the `HybiscusClient` constructor. This client must support the Fetch API.
+By default Hybiscus will use native `fetch`, falling back to `cross-fetch` if no native implementation is available. You can use an alternative fetch implementation by passing an instance of it as the second argument of the `HybiscusClient` constructor. This client must support the Fetch API.
 
 ```js
-const axios = require("axios");
-const client = new HybiscusClient(process.env.HYBISCUS_API_KEY, axios);
+const nodeFetch = require("node-fetch");
+const client = new HybiscusClient(process.env.HYBISCUS_API_KEY, nodeFetch);
 ```
 
 ## 📖 Documentation
