@@ -1,4 +1,4 @@
-import crossFetch from 'cross-fetch';
+import crossFetch from "cross-fetch";
 import { IReportDefinition } from "./Report";
 
 interface IBuildReportResponse {
@@ -25,10 +25,10 @@ export class HttpTransport {
         /**
          * User supplied value takes precedence, followed by global fetch if available and finally
          * falls back to cross-fetch
-         */ 
+         */
         if (fetchInstance) {
             this.fetch = fetchInstance;
-        } else if (typeof fetch === 'function') {
+        } else if (typeof fetch === "function") {
             this.fetch = fetch;
         } else {
             this.fetch = crossFetch;
@@ -40,14 +40,20 @@ export class HttpTransport {
      * @param reportSchema Report schema
      * @returns The task ID and task status
      */
-    async submitBuildReportJob(reportSchema: IReportDefinition): Promise<IBuildReportResponse> {
-        const req = await this.fetch(`https://api.hybiscus.dev/api/v1/build-report`, {
-            method: "POST",
-            body: JSON.stringify(reportSchema),
-            headers: {
-                "X-API-KEY": this.apiKey,
-            },
-        });
+    async submitBuildReportJob(
+        reportSchema: IReportDefinition
+    ): Promise<IBuildReportResponse> {
+        const req = await this.fetch(
+            "https://api.hybiscus.dev/api/v1/build-report",
+            {
+                method: "POST",
+                body: JSON.stringify(reportSchema),
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-API-KEY": this.apiKey,
+                },
+            }
+        );
 
         if (!req.ok) {
             return {
@@ -59,25 +65,30 @@ export class HttpTransport {
         const response = await req.json();
 
         return {
-            taskID: response.data?.task_id || null,
-            status: response.data?.status || null,
+            taskID: response.task_id || null,
+            status: response.status || null,
         };
     }
-
 
     /**
      * Submits a preview report task to the Hybiscus API for processing
      * @param reportSchema Report schema
      * @returns The task ID and task status
      */
-    async submitPreviewReportJob(reportSchema: IReportDefinition): Promise<IBuildReportResponse> {
-        const req = await this.fetch(`https://api.hybiscus.dev/api/v1/preview-report`, {
-            method: "POST",
-            body: JSON.stringify(reportSchema),
-            headers: {
-                "X-API-KEY": this.apiKey,
-            },
-        });
+    async submitPreviewReportJob(
+        reportSchema: IReportDefinition
+    ): Promise<IBuildReportResponse> {
+        const req = await this.fetch(
+            "https://api.hybiscus.dev/api/v1/preview-report",
+            {
+                method: "POST",
+                body: JSON.stringify(reportSchema),
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-API-KEY": this.apiKey,
+                },
+            }
+        );
 
         if (!req.ok) {
             return {
@@ -89,11 +100,10 @@ export class HttpTransport {
         const response = await req.json();
 
         return {
-            taskID: response.data?.task_id || null,
-            status: response.data?.status || null,
+            taskID: response.task_id || null,
+            status: response.status || null,
         };
     }
-
 
     /**
      * Gets the task status for the task ID
@@ -101,15 +111,19 @@ export class HttpTransport {
      * @returns Task status and any error message if task has failed
      */
     async getTaskStatus(taskID: string): Promise<ITaskStatusResponse> {
-        const req = await this.fetch(`https://api.hybiscus.dev/api/v1/get-task-status`, {
-            method: "POST",
-            body: JSON.stringify({
-                task_id: taskID,
-            }),
-            headers: {
-                "X-API-KEY": this.apiKey,
-            }, 
-        });
+        const req = await this.fetch(
+            "https://api.hybiscus.dev/api/v1/get-task-status?" +
+                new URLSearchParams({
+                    api_key: this.apiKey,
+                    task_id: taskID,
+                }),
+            {
+                method: "GET",
+                headers: {
+                    "X-API-KEY": this.apiKey,
+                },
+            }
+        );
 
         if (!req.ok) {
             return {
@@ -121,11 +135,10 @@ export class HttpTransport {
         const response = await req.json();
 
         return {
-            status: response.data?.status || null,
-            errorMessage: response.data?.error_message || null,
+            status: response.status || null,
+            errorMessage: response.error_message || null,
         };
     }
-
 
     /**
      * Returns a Promise that only resolves once the task reaches SUCCESS status or
@@ -137,7 +150,9 @@ export class HttpTransport {
         return new Promise((resolve, reject) => {
             const interval: ReturnType<typeof setInterval> = setInterval(
                 async () => {
-                    const { status, errorMessage } = await this.getTaskStatus(taskID);
+                    const { status, errorMessage } = await this.getTaskStatus(
+                        taskID
+                    );
                     if (status === "SUCCESS") {
                         clearInterval(interval);
                         resolve({
