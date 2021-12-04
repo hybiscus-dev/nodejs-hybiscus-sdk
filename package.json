@@ -1,1 +1,49 @@
-{"name":"@hybiscus/web-api","version":"0.2.3","description":"Javascript client for interacting with Hybiscus PDF API","main":"lib/index.js","types":"lib/index.d.ts","scripts":{"start":"npx tsc --watch","test":"jest","lint":"eslint . --ext .ts","build":"rm -rf ./lib/* && tsc","doc":"npm run build && rm -rf docs/* && jsdoc -r lib -d docs"},"repository":{"type":"git","url":"git+https://github.com/hybiscus-dev/nodejs-hybiscus-sdk.git"},"keywords":["pdf","api","hybiscus","reports","json","cloud"],"author":"ismailuddin","license":"ISC","bugs":{"url":"https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/issues"},"homepage":"https://github.com/hybiscus-dev/nodejs-hybiscus-sdk#readme","devDependencies":{"@babel/core":"^7.15.5","@babel/preset-env":"^7.15.6","@babel/preset-typescript":"^7.15.0","@types/jest":"^27.0.2","@typescript-eslint/eslint-plugin":"^4.31.2","@typescript-eslint/parser":"^4.31.2","babel-jest":"^27.2.1","eslint":"^7.32.0","fetch-mock-jest":"^1.5.1","jest":"^27.2.1","jsdoc":"^3.6.7","typescript":"^4.4.3"},"dependencies":{"cross-fetch":"^3.1.4"}}
+{
+    "name": "@hybiscus/web-api",
+    "version": "0.2.4",
+    "description": "Javascript client for interacting with Hybiscus PDF API",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "start": "npx tsc --watch",
+        "test": "jest",
+        "lint": "eslint . --ext .ts",
+        "build": "rm -rf ./lib/* && tsc",
+        "doc": "npm run build && rm -rf docs/* && jsdoc -r lib -d docs"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hybiscus-dev/nodejs-hybiscus-sdk.git"
+    },
+    "keywords": [
+        "pdf",
+        "api",
+        "hybiscus",
+        "reports",
+        "json",
+        "cloud"
+    ],
+    "author": "ismailuddin",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/issues"
+    },
+    "homepage": "https://github.com/hybiscus-dev/nodejs-hybiscus-sdk#readme",
+    "devDependencies": {
+        "@babel/core": "^7.15.5",
+        "@babel/preset-env": "^7.15.6",
+        "@babel/preset-typescript": "^7.15.0",
+        "@types/jest": "^27.0.2",
+        "@typescript-eslint/eslint-plugin": "^4.31.2",
+        "@typescript-eslint/parser": "^4.31.2",
+        "babel-jest": "^27.2.1",
+        "eslint": "^7.32.0",
+        "fetch-mock-jest": "^1.5.1",
+        "jest": "^27.2.1",
+        "jsdoc": "^3.6.7",
+        "typescript": "^4.4.3"
+    },
+    "dependencies": {
+        "cross-fetch": "^3.1.4"
+    }
+}
