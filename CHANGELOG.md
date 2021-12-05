@@ -1,3 +1,5 @@
+# v0.2.5
+- Add new `DoughnutRing` component
 # v0.2.4
 - Bug fix for v0.2.3 which used incorrect HTTP methods to make API calls. Closes issue #11 (PR #12)
 # v0.2.3
