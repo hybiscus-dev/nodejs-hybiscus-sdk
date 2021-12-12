@@ -1,3 +1,8 @@
+# v0.2.6
+- Add support for specifying URL for logo to include at top of report
+- Add support for specifying cloud storage upload link (AWS / Azure / GCS)
+- Fix bug with error messages not being returned in Promises returned from `Report.buildReport` and `Report.previewReport`
+- Fix bug with interval for checking task status not clearing after task status resolves to FAILED.
 # v0.2.5
 - Add new `DoughnutRing` component
 # v0.2.4
