@@ -7,16 +7,24 @@ interface IReportDefinition {
     components: Array<IComponentDefinition>;
 }
 
+interface ICloudStorage {
+    s3: string | null;
+    azureBlobStorage: string | null;
+    googleCloudStorage: string | null;
+}
+
 interface IReportConfig {
     colourTheme: string | null;
     typographyTheme: string | null;
     overrideColourTheme: Record<string, unknown>;
+    cloudStorage: ICloudStorage;
 }
 
 class Report {
     reportTitle: string;
     reportByline: string;
     versionNumber: string;
+    logoUrl: string | null;
     nPages: number;
     reportConfig: IReportConfig;
     components: Array<Component>;
@@ -34,26 +42,33 @@ class Report {
         reportTitle,
         reportByline = "",
         versionNumber = "",
+        logoUrl = null,
         nPages = 1,
         reportConfig = {
             colourTheme: "default",
             typographyTheme: "default",
             overrideColourTheme: {},
+            cloudStorage: {
+                s3: null,
+                azureBlobStorage: null,
+                googleCloudStorage: null,
+            },
         },
     }: {
         reportTitle: string;
         reportByline?: string;
         versionNumber?: string;
+        logoUrl?: string | null;
         nPages?: number;
         reportConfig?: IReportConfig;
     }) {
         this.reportTitle = reportTitle;
         this.reportByline = reportByline;
         this.versionNumber = versionNumber;
+        this.logoUrl = logoUrl;
         this.nPages = nPages;
         this.reportConfig = reportConfig;
         this.components = [];
-
         return this;
     }
 
@@ -74,7 +89,7 @@ class Report {
         this.components.push(...components);
         return this;
     }
-    
+
     getDefinition(): IReportDefinition {
         return {
             type: "Report",
@@ -82,12 +97,20 @@ class Report {
                 report_title: this.reportTitle,
                 report_byline: this.reportByline,
                 version_number: this.versionNumber,
+                logo_url: this.logoUrl,
             },
             config: {
                 n_pages: this.nPages,
                 colour_theme: this.reportConfig.colourTheme,
                 typography_theme: this.reportConfig.typographyTheme,
                 override_colour_theme: this.reportConfig.overrideColourTheme,
+                cloud_storage: {
+                    s3: this.reportConfig.cloudStorage.s3,
+                    azure_blob_storage:
+                        this.reportConfig.cloudStorage.azureBlobStorage,
+                    google_cloud_storage:
+                        this.reportConfig.cloudStorage.googleCloudStorage,
+                },
             },
             components: this.components.map((c) => c.getDefinition()),
         };

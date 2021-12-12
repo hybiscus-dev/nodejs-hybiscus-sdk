@@ -6,7 +6,7 @@ interface IBuildReportResponse {
     status: string;
 }
 
-interface ITaskStatusResponse {
+export interface ITaskStatusResponse {
     status: string | null;
     errorMessage: string | null;
 }
@@ -161,6 +161,7 @@ export class HttpTransport {
                         });
                         return;
                     } else if (status === "FAILED") {
+                        clearInterval(interval);
                         reject({
                             status,
                             errorMessage,
