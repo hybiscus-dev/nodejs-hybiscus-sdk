@@ -3,7 +3,7 @@
  */
 
 import { IReportDefinition, Report } from "./Report";
-import { HttpTransport } from "./HttpTransport";
+import { HttpTransport, ITaskStatusResponse } from "./HttpTransport";
 
 interface IPDFReport {
     url: string | null;
@@ -75,11 +75,12 @@ class HybiscusClient {
                     errorMessage: errorMessage || null,
                 };
             } catch (error) {
+                const errorResposne = error as ITaskStatusResponse;
                 return {
                     url: null,
                     taskID,
                     status: "FAILED",
-                    errorMessage,
+                    errorMessage: errorResposne.errorMessage
                 };
             }
         } else {
@@ -142,11 +143,12 @@ class HybiscusClient {
                     errorMessage: errorMessage || null,
                 };
             } catch (error) {
+                const errorResposne = error as ITaskStatusResponse;
                 return {
                     url: null,
                     taskID,
                     status: "FAILED",
-                    errorMessage,
+                    errorMessage: errorResposne.errorMessage,
                 };
             }
         } else {
