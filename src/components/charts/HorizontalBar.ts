@@ -47,7 +47,7 @@ class HorizontalBarChart extends Component {
         caption: string | null,
         width: WidthType,
     }) {
-        super({ type: "Chart.Bar" });
+        super({ type: "Chart.HorizontalBar" });
         this.data = data;
         this.xLabel = xLabel;
         this.yLabel = yLabel;
