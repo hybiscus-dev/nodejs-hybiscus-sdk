@@ -14,7 +14,7 @@ class HorizontalBarChart extends Component {
     width: WidthType;
 
     /**
-     * Line chart constructor
+     * Horizontal bar chart constructor
      * @param config Component config
      * @param config.data Data to plot in the chart
      * @param config.xLabel X-axis label

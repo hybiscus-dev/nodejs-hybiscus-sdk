@@ -14,7 +14,7 @@ class BarChart extends Component {
     width: WidthType;
 
     /**
-     * Line chart constructor
+     * Bar chart constructor
      * @param config Component config
      * @param config.data Data to plot in the chart
      * @param config.xLabel X-axis label
