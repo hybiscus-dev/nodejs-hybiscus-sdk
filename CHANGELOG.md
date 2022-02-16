@@ -1,3 +1,8 @@
+# v0.2.7
+- Add support for LineChartV2 (Line.Chart) component
+- Add support for Chart.Bar component
+- Add support for Chart.HorizontalBar component
+- Add support for webhooks
 # v0.2.6
 - Add support for specifying URL for logo to include at top of report
 - Add support for specifying cloud storage upload link (AWS / Azure / GCS)
