@@ -1,9 +1,9 @@
 import { Component, IComponentDefinition } from "../base";
-import { WidthType, IData } from "../types";
+import { WidthType, IDoughnutRingData } from "../types";
 
 
 class DoughnutRing extends Component {
-    data: Array<IData>;
+    data: Array<IDoughnutRingData>;
     margin: number;
     chartRadiusPercent: number;
     arcThicknessPercent: number;
@@ -54,7 +54,7 @@ class DoughnutRing extends Component {
         caption = null,
         width = null,
     }: {
-        data: Array<IData>,
+        data: Array<IDoughnutRingData>,
         margin: number,
         chartRadiusPercent: number,
         arcThicknessPercent: number,

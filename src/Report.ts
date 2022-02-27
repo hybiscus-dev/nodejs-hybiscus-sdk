@@ -13,11 +13,17 @@ interface ICloudStorage {
     googleCloudStorage: string | null;
 }
 
+interface IWebhooks {
+    url: string;
+    authHeader: string | null;
+}
+
 interface IReportConfig {
     colourTheme: string | null;
     typographyTheme: string | null;
     overrideColourTheme: Record<string, unknown>;
     cloudStorage: ICloudStorage;
+    webhooks: Array<IWebhooks>;
 }
 
 class Report {
@@ -53,6 +59,7 @@ class Report {
                 azureBlobStorage: null,
                 googleCloudStorage: null,
             },
+            webhooks: []
         },
     }: {
         reportTitle: string;
@@ -111,6 +118,7 @@ class Report {
                     google_cloud_storage:
                         this.reportConfig.cloudStorage.googleCloudStorage,
                 },
+                webhooks: this.reportConfig.webhooks
             },
             components: this.components.map((c) => c.getDefinition()),
         };

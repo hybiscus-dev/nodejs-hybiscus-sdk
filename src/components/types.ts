@@ -18,5 +18,12 @@ export type WidthType =
 export interface IData {
     x: string | number;
     y: number;
-    [key: string]: string | number;
+    [key: string]: string | number | null;
+}
+
+export interface IDoughnutRingData {
+    end: number;
+    start: number;
+    label: string | null;
+    colour: string | null;
 }
