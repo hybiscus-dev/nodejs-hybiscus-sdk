@@ -1,6 +1,6 @@
 {
     "name": "@hybiscus/web-api",
-    "version": "0.2.7",
+    "version": "0.3.0",
     "description": "Javascript client for interacting with Hybiscus PDF API",
     "types": "./lib/cjs/types/index.d.ts",
     "main": "./lib/cjs/index.js",
