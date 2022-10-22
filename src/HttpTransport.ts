@@ -1,6 +1,5 @@
 import crossFetch from "cross-fetch";
 import { IReportDefinition } from "./Report";
-
 interface IBuildReportResponse {
     taskID: string | null;
     status: string;
@@ -13,13 +12,13 @@ export interface ITaskStatusResponse {
 
 export class HttpTransport {
     apiKey: string;
-    fetch: Function;
+    fetch: typeof crossFetch;
 
     /**
      * Constructor for HttpTransport
      * @param fetchInstance Optional user-provided fetch instance
      */
-    constructor(apiKey: string, fetchInstance?: Function) {
+    constructor(apiKey: string, fetchInstance?: typeof crossFetch) {
         this.apiKey = apiKey;
 
         /**
