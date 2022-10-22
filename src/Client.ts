@@ -3,6 +3,7 @@
  */
 
 import { IReportDefinition, Report } from "./Report";
+import crossFetch from "cross-fetch";
 import { HttpTransport, ITaskStatusResponse } from "./HttpTransport";
 
 interface IPDFReport {
@@ -21,7 +22,7 @@ class HybiscusClient {
      * @param apiKey API key for Hybiscus API
      * @param fetchInstance Optional user-provided fetch instance
      */
-    constructor(apiKey: string, fetchInstance?: Function) {
+    constructor(apiKey: string, fetchInstance?: typeof crossFetch) {
         this.api = new HttpTransport(apiKey, fetchInstance);
         this.apiKey = apiKey;
     }
@@ -48,7 +49,9 @@ class HybiscusClient {
             reportDefinition = reportSchema;
         }
         {
-            const response = await this.api.submitBuildReportJob(reportDefinition);
+            const response = await this.api.submitBuildReportJob(
+                reportDefinition
+            );
             status = response.status;
             taskID = response.taskID;
         }
@@ -80,7 +83,7 @@ class HybiscusClient {
                     url: null,
                     taskID,
                     status: "FAILED",
-                    errorMessage: errorResposne.errorMessage
+                    errorMessage: errorResposne.errorMessage,
                 };
             }
         } else {
@@ -116,7 +119,9 @@ class HybiscusClient {
             reportDefinition = reportSchema;
         }
         {
-            const response = await this.api.submitPreviewReportJob(reportDefinition);
+            const response = await this.api.submitPreviewReportJob(
+                reportDefinition
+            );
             status = response.status;
             taskID = response.taskID;
         }

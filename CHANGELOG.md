@@ -1,3 +1,5 @@
+# v0.3.0
+- Add support for CommonJS and ESM module usage of library
 # v0.2.7
 - Add support for LineChartV2 (Line.Chart) component
 - Add support for Chart.Bar component
