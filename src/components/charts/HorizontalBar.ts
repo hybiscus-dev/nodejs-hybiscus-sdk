@@ -1,18 +1,19 @@
-import { Component, IComponentDefinition } from "../base";
-import { WidthType, IData } from "../types";
+import { Component } from "../base";
+import { WidthType, IData, IOptions } from "../types";
 
-
-class HorizontalBarChart extends Component {
+export interface IHorizontalBarChartOptions extends IOptions {
     data: Array<IData>;
-    xLabel: string;
-    yLabel: string;
-    colorScheme: string;
-    fontSize: number;
-    aspectRatio: number;
-    chartTitle: string | null;
+    x_label: string;
+    y_label: string;
+    color_scheme: string;
+    font_size: number;
+    aspect_ratio: number;
+    chart_title: string | null;
     caption: string | null;
     width: WidthType;
+}
 
+class HorizontalBarChart extends Component {
     /**
      * Horizontal bar chart constructor
      * @param config Component config
@@ -26,54 +27,11 @@ class HorizontalBarChart extends Component {
      * @param config.caption Caption to add below chart. Optional.
      * @param config.width Width of the component
      */
-    constructor({
-        data,
-        xLabel,
-        yLabel,
-        colorScheme,
-        fontSize,
-        aspectRatio,
-        chartTitle = null,
-        caption = null,
-        width = null,
-    }: {
-        data: Array<IData>,
-        xLabel: string,
-        yLabel: string,
-        colorScheme: string,
-        fontSize: number,
-        aspectRatio: number,
-        chartTitle: string | null,
-        caption: string | null,
-        width: WidthType,
-    }) {
-        super({ type: "Chart.HorizontalBar" });
-        this.data = data;
-        this.xLabel = xLabel;
-        this.yLabel = yLabel;
-        this.colorScheme = colorScheme;
-        this.aspectRatio = aspectRatio;
-        this.fontSize = fontSize;
-        this.chartTitle = chartTitle;
-        this.caption = caption;
-        this.width = width;
-    }
-
-    getDefinition(): IComponentDefinition {
-        return {
-            type: this.type,
-            options: {
-                data: this.data,
-                x_label: this.xLabel,
-                y_label: this.yLabel,
-                color_scheme: this.colorScheme,
-                font_size: this.fontSize,
-                aspect_ratio: this.aspectRatio,
-                chart_title: this.chartTitle,
-                caption: this.caption,
-                width: this.width,
-            }
-        };
+    constructor(
+        options: IHorizontalBarChartOptions = <IHorizontalBarChartOptions>{},
+        componentType = "Chart.HorizontalBar"
+    ) {
+        super(options, componentType);
     }
 }
 

@@ -1,23 +1,24 @@
-import { Component, IComponentDefinition } from "../base";
-import { WidthType, IDoughnutRingData } from "../types";
+import { Component } from "../base";
+import { WidthType, IDoughnutRingData, IOptions } from "../types";
 
-
-class DoughnutRing extends Component {
+export interface IDoughnutRingOptions extends IOptions {
     data: Array<IDoughnutRingData>;
     margin: number;
-    chartRadiusPercent: number;
-    arcThicknessPercent: number;
-    minVal: number;
-    maxVal: number;
-    ticksCount: number;
-    backgroundRingColour: string;
-    fontSize: number;
-    insideTitle: string | null;
-    insideSubtitle: string | null;
-    chartTitle: string | null;
+    chart_radius_percent: number;
+    arc_thickness_percent: number;
+    min_val: number;
+    max_val: number;
+    ticks_count: number;
+    background_ring_colour: string;
+    font_size: number;
+    inside_title: string | null;
+    inside_subtitle: string | null;
+    chart_title: string | null;
     caption: string | null;
     width: WidthType;
+}
 
+class DoughnutRing extends Component {
     /**
      * Doughnut ring chart constructor
      * @param config Component config
@@ -38,74 +39,11 @@ class DoughnutRing extends Component {
      * @param config.caption Caption to add below chart. Optional.
      * @param config.width Width of the component
      */
-    constructor({
-        data,
-        margin = 10,
-        chartRadiusPercent = 0.9,
-        arcThicknessPercent = 0.33,
-        minVal = 0,
-        maxVal = 100,
-        ticksCount = 10,
-        backgroundRingColour = "#f0f0f0",
-        fontSize = 12,
-        insideTitle = null,
-        insideSubtitle = null,
-        chartTitle = null,
-        caption = null,
-        width = null,
-    }: {
-        data: Array<IDoughnutRingData>,
-        margin: number,
-        chartRadiusPercent: number,
-        arcThicknessPercent: number,
-        minVal: number,
-        maxVal: number,
-        ticksCount: number,
-        backgroundRingColour: string,
-        fontSize: number,
-        insideTitle: string | null,
-        insideSubtitle: string | null,
-        chartTitle: string | null,
-        caption: string | null,
-        width: WidthType,
-    }) {
-        super({ type: "DoughnutRing" });
-        this.data = data;
-        this.margin = margin;
-        this.maxVal = maxVal;
-        this.minVal = minVal;
-        this.chartRadiusPercent = chartRadiusPercent;
-        this.arcThicknessPercent = arcThicknessPercent;
-        this.ticksCount = ticksCount;
-        this.backgroundRingColour = backgroundRingColour;
-        this.fontSize = fontSize;
-        this.insideTitle = insideTitle;
-        this.insideSubtitle = insideSubtitle;
-        this.chartTitle = chartTitle;
-        this.caption = caption;
-        this.width = width;
-    }
-
-    getDefinition(): IComponentDefinition {
-        return {
-            type: this.type,
-            options: {
-                data: this.data,
-                margin: this.margin,
-                min_val: this.minVal,
-                max_val: this.maxVal,
-                chart_radius_percent: this.chartRadiusPercent,
-                arc_thickness_percent: this.arcThicknessPercent,
-                ticks_count: this.ticksCount,
-                background_ring_colour: this.backgroundRingColour,
-                font_size: this.fontSize,
-                inside_title: this.insideTitle,
-                inside_subtitle: this.insideSubtitle,
-                chart_title: this.chartTitle,
-                caption: this.caption,
-                width: this.width,
-            }
-        };
+    constructor(
+        options: IDoughnutRingOptions = <IDoughnutRingOptions>{},
+        componentType = "DoughnutRing"
+    ) {
+        super(options, componentType);
     }
 }
 

@@ -3,8 +3,8 @@ import { WidthType, IData, IOptions } from "../types";
 
 export interface IScatterChartOptions extends IOptions {
     data: Array<IData>;
-    xLabel: string;
-    yLabel: string;
+    x_label: string;
+    y_label: string;
     colour_by: string | null;
     chart_title: string | null;
     caption: string | null;

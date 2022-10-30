@@ -1,18 +1,19 @@
-import { Component, IComponentDefinition } from "../base";
-import { WidthType, IData } from "../types";
+import { Component } from "../base";
+import { WidthType, IData, IOptions } from "../types";
 
-
-class BarChartv2 extends Component {
+export interface IBarChartV2Options extends IOptions {
     data: Array<IData>;
-    xLabel: string;
-    yLabel: string;
-    colorScheme: string;
-    fontSize: number;
-    aspectRatio: number;
-    chartTitle: string | null;
+    x_label: string;
+    y_label: string;
+    color_scheme: string;
+    font_size: number;
+    aspect_ratio: number;
+    chart_title: string | null;
     caption: string | null;
     width: WidthType;
+}
 
+class BarChartV2 extends Component {
     /**
      * Bar chart constructor
      * @param config Component config
@@ -26,55 +27,12 @@ class BarChartv2 extends Component {
      * @param config.caption Caption to add below chart. Optional.
      * @param config.width Width of the component
      */
-    constructor({
-        data,
-        xLabel,
-        yLabel,
-        colorScheme,
-        fontSize,
-        aspectRatio,
-        chartTitle = null,
-        caption = null,
-        width = null,
-    }: {
-        data: Array<IData>,
-        xLabel: string,
-        yLabel: string,
-        colorScheme: string,
-        fontSize: number,
-        aspectRatio: number,
-        chartTitle: string | null,
-        caption: string | null,
-        width: WidthType,
-    }) {
-        super({ type: "Chart.Bar" });
-        this.data = data;
-        this.xLabel = xLabel;
-        this.yLabel = yLabel;
-        this.colorScheme = colorScheme;
-        this.aspectRatio = aspectRatio;
-        this.fontSize = fontSize;
-        this.chartTitle = chartTitle;
-        this.caption = caption;
-        this.width = width;
-    }
-
-    getDefinition(): IComponentDefinition {
-        return {
-            type: this.type,
-            options: {
-                data: this.data,
-                x_label: this.xLabel,
-                y_label: this.yLabel,
-                color_scheme: this.colorScheme,
-                font_size: this.fontSize,
-                aspect_ratio: this.aspectRatio,
-                chart_title: this.chartTitle,
-                caption: this.caption,
-                width: this.width,
-            }
-        };
+    constructor(
+        options: IBarChartV2Options = <IBarChartV2Options>{},
+        componentType = "BarChart"
+    ) {
+        super(options, componentType);
     }
 }
 
-export { BarChartv2 };
+export { BarChartV2 };

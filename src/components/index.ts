@@ -1,2 +1,2 @@
 export * as Core from "./core";
-// export * as Charts from "./charts";
+export * as Charts from "./charts";

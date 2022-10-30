@@ -3,10 +3,10 @@ import { WidthType, IData, IOptions } from "../types";
 
 export interface ILineChartOptions extends IOptions {
     data: Array<IData>;
-    xLabel: string;
-    yLabel: string;
-    colourBy: string | null;
-    chartTitle: string | null;
+    x_label: string;
+    y_label: string;
+    colour_by: string | null;
+    chart_title: string | null;
     caption: string | null;
     width: WidthType;
 }

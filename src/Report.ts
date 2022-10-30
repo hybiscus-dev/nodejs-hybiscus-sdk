@@ -9,30 +9,30 @@ interface IReportDefinition {
 
 interface ICloudStorage {
     s3: string | null;
-    azureBlobStorage: string | null;
-    googleCloudStorage: string | null;
+    azure_blob_storage: string | null;
+    google_cloud_storage: string | null;
 }
 
 interface IWebhooks {
     url: string;
-    authHeader: string | null;
+    auth_header: string | null;
 }
 
 interface IReportConfig {
-    colourTheme: string | null;
-    typographyTheme: string | null;
-    overrideColourTheme: Record<string, unknown>;
-    cloudStorage: ICloudStorage;
+    colour_theme: string | null;
+    typography_theme: string | null;
+    override_colour_theme: Record<string, unknown>;
+    cloud_storage: ICloudStorage;
     webhooks: Array<IWebhooks>;
 }
 
 class Report {
-    reportTitle: string;
-    reportByline: string;
-    versionNumber: string;
-    logoUrl: string | null;
-    nPages: number;
-    reportConfig: IReportConfig;
+    report_title: string;
+    report_byline: string;
+    version_number: string;
+    logo_url: string | null;
+    n_pages: number;
+    report_config: IReportConfig;
     components: Array<Component>;
 
     /**
@@ -45,36 +45,37 @@ class Report {
      * @param config.nPages Number of pages (optional)
      */
     constructor({
-        reportTitle,
-        reportByline = "",
-        versionNumber = "",
-        logoUrl = null,
-        nPages = 1,
-        reportConfig = {
-            colourTheme: "default",
-            typographyTheme: "default",
-            overrideColourTheme: {},
-            cloudStorage: {
+        report_title,
+        report_byline = "",
+        version_number = "",
+        logo_url = null,
+        n_pages = 1,
+        report_config = {
+            colour_theme: "default",
+            typography_theme: "default",
+            override_colour_theme: {},
+            cloud_storage: {
                 s3: null,
-                azureBlobStorage: null,
-                googleCloudStorage: null,
+                azure_blob_storage: null,
+                google_cloud_storage: null,
             },
-            webhooks: []
+            webhooks: [],
         },
     }: {
-        reportTitle: string;
-        reportByline?: string;
-        versionNumber?: string;
-        logoUrl?: string | null;
-        nPages?: number;
-        reportConfig?: IReportConfig;
+        report_title: string;
+        report_byline: string;
+        version_number: string;
+        logo_url: string | null;
+        n_pages: number;
+        report_config: IReportConfig;
+        components: Array<Component>;
     }) {
-        this.reportTitle = reportTitle;
-        this.reportByline = reportByline;
-        this.versionNumber = versionNumber;
-        this.logoUrl = logoUrl;
-        this.nPages = nPages;
-        this.reportConfig = reportConfig;
+        this.report_title = report_title;
+        this.report_byline = report_byline;
+        this.version_number = version_number;
+        this.logo_url = logo_url;
+        this.n_pages = n_pages;
+        this.report_config = report_config;
         this.components = [];
         return this;
     }
@@ -101,24 +102,18 @@ class Report {
         return {
             type: "Report",
             options: {
-                report_title: this.reportTitle,
-                report_byline: this.reportByline,
-                version_number: this.versionNumber,
-                logo_url: this.logoUrl,
+                report_title: this.report_title,
+                report_byline: this.report_byline,
+                version_number: this.version_number,
+                logo_url: this.logo_url,
             },
             config: {
-                n_pages: this.nPages,
-                colour_theme: this.reportConfig.colourTheme,
-                typography_theme: this.reportConfig.typographyTheme,
-                override_colour_theme: this.reportConfig.overrideColourTheme,
-                cloud_storage: {
-                    s3: this.reportConfig.cloudStorage.s3,
-                    azure_blob_storage:
-                        this.reportConfig.cloudStorage.azureBlobStorage,
-                    google_cloud_storage:
-                        this.reportConfig.cloudStorage.googleCloudStorage,
-                },
-                webhooks: this.reportConfig.webhooks
+                n_pages: this.n_pages,
+                colour_theme: this.report_config.colour_theme,
+                typography_theme: this.report_config.typography_theme,
+                override_colour_theme: this.report_config.override_colour_theme,
+                cloud_storage: this.report_config.cloud_storage,
+                webhooks: this.report_config.webhooks,
             },
             components: this.components.map((c) => c.getDefinition()),
         };

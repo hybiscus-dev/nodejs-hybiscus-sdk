@@ -4,13 +4,13 @@ import { WidthType, IOptions } from "../types";
 export interface ITextOptions extends IOptions {
     text: string;
     width?: WidthType;
-    horizontalMargin?: number;
-    verticalMargin?: number;
+    horizontal_margin?: number;
+    vertical_margin?: number;
     align?: "left" | "centre" | "right";
     size?: "sm" | "xs" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
     colour?: string | null;
-    bgColour?: string | null;
-    innerPadding?: number | null;
+    bg_colour?: string | null;
+    inner_padding?: number | null;
 }
 
 class Text extends Component {
