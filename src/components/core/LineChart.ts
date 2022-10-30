@@ -1,8 +1,7 @@
-import { Component, IComponentDefinition } from "../base";
-import { WidthType, IData } from "../types";
+import { Component } from "../base";
+import { WidthType, IData, IOptions } from "../types";
 
-
-class LineChart extends Component {
+export interface ILineChartOptions extends IOptions {
     data: Array<IData>;
     xLabel: string;
     yLabel: string;
@@ -10,6 +9,9 @@ class LineChart extends Component {
     chartTitle: string | null;
     caption: string | null;
     width: WidthType;
+}
+
+class LineChart extends Component {
 
     /**
      * Line chart constructor
@@ -23,46 +25,11 @@ class LineChart extends Component {
      * @param config.caption Caption to add below chart. Optional.
      * @param config.width Width of the component
      */
-    constructor({
-        data,
-        xLabel,
-        yLabel,
-        colourBy = null,
-        chartTitle = null,
-        caption = null,
-        width = null,
-    }: {
-        data: Array<IData>,
-        xLabel: string,
-        yLabel: string,
-        colourBy: string | null,
-        chartTitle: string | null,
-        caption: string | null,
-        width: WidthType,
-    }) {
-        super({ type: "LineChart" });
-        this.data = data;
-        this.xLabel = xLabel;
-        this.yLabel = yLabel;
-        this.colourBy = colourBy;
-        this.chartTitle = chartTitle;
-        this.caption = caption;
-        this.width = width;
-    }
-
-    getDefinition(): IComponentDefinition {
-        return {
-            type: this.type,
-            options: {
-                data: this.data,
-                x_label: this.xLabel,
-                y_label: this.yLabel,
-                colour_by: this.colourBy,
-                chart_title: this.chartTitle,
-                caption: this.caption,
-                width: this.width,
-            }
-        };
+    constructor(
+        options: ILineChartOptions = <ILineChartOptions>{},
+        componentType = "LineChart"
+    ) {
+        super(options, componentType);
     }
 }
 

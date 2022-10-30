@@ -1,10 +1,19 @@
-import { Component, IComponentDefinition } from "../base";
-import { WidthType } from "../types";
+import { Component } from "../base";
+import { WidthType, IOptions } from "../types";
 
+export interface ITextOptions extends IOptions {
+    text: string;
+    width?: WidthType;
+    horizontalMargin?: number;
+    verticalMargin?: number;
+    align?: "left" | "centre" | "right";
+    size?: "sm" | "xs" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+    colour?: string | null;
+    bgColour?: string | null;
+    innerPadding?: number | null;
+}
 
 class Text extends Component {
-    text: string;
-    width: WidthType;
 
     /**
      * Text constructor
@@ -12,26 +21,11 @@ class Text extends Component {
      * @param config.text Text to add inside the component
      * @param config.width Width of the component
      */
-    constructor({
-        text,
-        width = null,
-    }: {
-        text: string;
-        width?: WidthType;
-    }) {
-        super({ type: "Text" });
-        this.text = text;
-        this.width = width;
-    }
-
-    getDefinition(): IComponentDefinition {
-        return {
-            type: this.type,
-            options: {
-                text: this.text,
-                width: this.width,
-            }
-        };
+    constructor(
+        options: ITextOptions = <ITextOptions>{},
+        componentType = "Text"
+    ) {
+        super(options, componentType);
     }
 }
 

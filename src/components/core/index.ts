@@ -9,4 +9,3 @@ export { BarChart } from "./BarChart";
 export { ScatterChart } from "./ScatterChart";
 export { PageBreak } from "./PageBreak";
 export { Spacer } from "./Spacer";
-export { DoughnutRing } from "../charts/DoughnutRing";

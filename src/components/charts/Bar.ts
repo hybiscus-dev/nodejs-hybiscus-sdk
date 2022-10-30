@@ -2,7 +2,7 @@ import { Component, IComponentDefinition } from "../base";
 import { WidthType, IData } from "../types";
 
 
-class BarChart extends Component {
+class BarChartv2 extends Component {
     data: Array<IData>;
     xLabel: string;
     yLabel: string;
@@ -77,4 +77,4 @@ class BarChart extends Component {
     }
 }
 
-export { BarChart };
+export { BarChartv2 };
