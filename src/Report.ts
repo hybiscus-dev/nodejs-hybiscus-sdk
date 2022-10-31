@@ -1,16 +1,11 @@
 import { Component, IComponentDefinition } from "./components/base";
 
-interface IReportDefinition {
-    type: string;
-    options: Record<string, unknown>;
-    config: Record<string, unknown>;
-    components: Array<IComponentDefinition>;
-}
+
 
 interface ICloudStorage {
-    s3: string | null;
-    azure_blob_storage: string | null;
-    google_cloud_storage: string | null;
+    s3?: string;
+    azure_blob_storage?: string;
+    google_cloud_storage?: string;
 }
 
 interface IWebhooks {
@@ -18,64 +13,44 @@ interface IWebhooks {
     auth_header: string | null;
 }
 
+interface IReportOptions {
+    report_title: string;
+    logo_url?: string;
+    report_byline?: string;
+    version_number?: string;
+    enable_header?: boolean;
+}
+
+interface IReportDefinition {
+    type: string;
+    options: IReportOptions;
+    config: IReportConfig;
+    components: Array<IComponentDefinition>;
+}
+
 interface IReportConfig {
-    colour_theme: string | null;
-    typography_theme: string | null;
-    override_colour_theme: Record<string, unknown>;
+    n_pages?: number;
+    enable_header?: boolean;
+    colour_theme?: string;
+    landscape?: boolean;
+    typography_theme?: string;
+    enable_pagination?: boolean;
+    override_colour_theme?: Record<string, unknown>;
     cloud_storage: ICloudStorage;
     webhooks: Array<IWebhooks>;
 }
 
 class Report {
-    report_title: string;
-    report_byline: string;
-    version_number: string;
-    logo_url: string | null;
-    n_pages: number;
-    report_config: IReportConfig;
-    components: Array<Component>;
+    options: IReportOptions;
+    config: IReportConfig;
+    components: Component[];
 
-    /**
-     *
-     * @param config Component config
-     * @param config.reportTitle Report title
-     * @param config.reportByline Report byline (optional)
-     * @param config.versionNumber Report version number (optional)
-     * @param config.reportConfig Report config (optional)
-     * @param config.nPages Number of pages (optional)
-     */
-    constructor({
-        report_title,
-        report_byline = "",
-        version_number = "",
-        logo_url = null,
-        n_pages = 1,
-        report_config = {
-            colour_theme: "default",
-            typography_theme: "default",
-            override_colour_theme: {},
-            cloud_storage: {
-                s3: null,
-                azure_blob_storage: null,
-                google_cloud_storage: null,
-            },
-            webhooks: [],
-        },
-    }: {
-        report_title: string;
-        report_byline: string;
-        version_number: string;
-        logo_url: string | null;
-        n_pages: number;
-        report_config: IReportConfig;
-        components: Array<Component>;
-    }) {
-        this.report_title = report_title;
-        this.report_byline = report_byline;
-        this.version_number = version_number;
-        this.logo_url = logo_url;
-        this.n_pages = n_pages;
-        this.report_config = report_config;
+    constructor(
+        options: IReportOptions = <IReportOptions>{},
+        config: IReportConfig = <IReportConfig>{}
+    ) {
+        this.options = options;
+        this.config = config;
         this.components = [];
         return this;
     }
@@ -102,18 +77,10 @@ class Report {
         return {
             type: "Report",
             options: {
-                report_title: this.report_title,
-                report_byline: this.report_byline,
-                version_number: this.version_number,
-                logo_url: this.logo_url,
+                ...this.options,
             },
             config: {
-                n_pages: this.n_pages,
-                colour_theme: this.report_config.colour_theme,
-                typography_theme: this.report_config.typography_theme,
-                override_colour_theme: this.report_config.override_colour_theme,
-                cloud_storage: this.report_config.cloud_storage,
-                webhooks: this.report_config.webhooks,
+                ...this.config,
             },
             components: this.components.map((c) => c.getDefinition()),
         };
