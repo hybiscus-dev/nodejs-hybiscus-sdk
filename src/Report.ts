@@ -36,8 +36,8 @@ interface IReportConfig {
     typography_theme?: string;
     enable_pagination?: boolean;
     override_colour_theme?: Record<string, unknown>;
-    cloud_storage: ICloudStorage;
-    webhooks: Array<IWebhooks>;
+    cloud_storage?: ICloudStorage;
+    webhooks?: Array<IWebhooks>;
 }
 
 class Report {

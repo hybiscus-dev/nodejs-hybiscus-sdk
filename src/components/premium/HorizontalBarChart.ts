@@ -1,21 +1,21 @@
 import { Component } from "../base";
 import { WidthType, IData, IOptions } from "../types";
 
-export interface IBarChartV2Options extends IOptions {
+export interface IHorizontalBarChartOptions extends IOptions {
     data: Array<IData>;
     x_label: string;
     y_label: string;
-    color_scheme: string;
-    font_size: number;
-    aspect_ratio: number;
-    chart_title: string | null;
-    caption: string | null;
-    width: WidthType;
+    color_scheme?: string;
+    font_size?: number;
+    aspect_ratio?: number;
+    chart_title?: string | null;
+    caption?: string | null;
+    width?: WidthType;
 }
 
-class BarChartV2 extends Component {
+class HorizontalBarChart extends Component {
     /**
-     * Bar chart constructor
+     * Horizontal bar chart constructor
      * @param config Component config
      * @param config.data Data to plot in the chart
      * @param config.xLabel X-axis label
@@ -28,11 +28,11 @@ class BarChartV2 extends Component {
      * @param config.width Width of the component
      */
     constructor(
-        options: IBarChartV2Options = <IBarChartV2Options>{},
-        componentType = "BarChart"
+        options: IHorizontalBarChartOptions = <IHorizontalBarChartOptions>{},
+        componentType = "Chart.HorizontalBar"
     ) {
         super(options, componentType);
     }
 }
 
-export { BarChartV2 };
+export { HorizontalBarChart };

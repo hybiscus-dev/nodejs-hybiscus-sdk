@@ -4,10 +4,10 @@ import { WidthType, IOptions } from "../types";
 export interface ICardOptions extends IOptions {
     title: string;
     value: string | number;
-    units: string;
-    icon: string | null;
-    highlighted: boolean;
-    width: WidthType;
+    units?: string;
+    icon?: string | null;
+    highlighted?: boolean;
+    width?: WidthType;
 }
 
 class Card extends Component {

@@ -5,7 +5,7 @@ export interface IImageOptions extends IOptions {
     image_url: string | null;
     base64?: string | null;
     base64_extension?: string | null;
-    width: WidthType;
+    width?: WidthType;
     caption?: string;
     horizontal_margin?: number;
     vertical_margin?: number;

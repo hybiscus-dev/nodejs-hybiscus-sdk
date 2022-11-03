@@ -14,16 +14,16 @@ export interface RowCellDescription extends ICellDescription {
 export interface ITableOptions extends IOptions {
     title: string | null;
     headings: Array<string | ICellDescription>;
-    width: WidthType;
+    width?: WidthType;
     rows: Array<Array<string | RowCellDescription>>;
-    striped: boolean;
-    table_border: boolean;
-    horizontal_margin: number;
-    vertical_margin: number;
-    col_border: boolean;
-    col_align: string[];
-    col_width: number[];
-    col_bg: string[];
+    striped?: boolean;
+    table_border?: boolean;
+    horizontal_margin?: number;
+    vertical_margin?: number;
+    col_border?: boolean;
+    col_align?: string[];
+    col_width?: number[];
+    col_bg?: string[];
 }
 
 class Table extends Component {

@@ -6,7 +6,7 @@ interface IComponentDefinition {
     components?: Array<IComponentDefinition>;
 }
 
-abstract class Component {
+class Component {
     componentType: string;
     options: IOptions;
 
