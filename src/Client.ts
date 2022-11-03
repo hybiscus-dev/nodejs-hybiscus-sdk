@@ -66,6 +66,13 @@ class HybiscusClient {
                     status: "FAILED",
                     errorMessage: errorMessage || null,
                 };
+            } else if (status === "SUCCESS") {
+                return {
+                    taskID,
+                    url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
+                    status: "SUCCESS",
+                    errorMessage: errorMessage || null,
+                };
             }
             try {
                 const response = await this.api.waitForTaskSuccess(taskID);
@@ -134,6 +141,13 @@ class HybiscusClient {
                     url: null,
                     taskID,
                     status: "FAILED",
+                    errorMessage: errorMessage || null,
+                };
+            } else if (status === "SUCCESS") {
+                return {
+                    taskID,
+                    url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
+                    status: "SUCCESS",
                     errorMessage: errorMessage || null,
                 };
             }

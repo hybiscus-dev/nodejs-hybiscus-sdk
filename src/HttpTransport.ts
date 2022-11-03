@@ -42,7 +42,7 @@ export class HttpTransport {
     async submitBuildReportJob(
         reportSchema: IReportDefinition
     ): Promise<IBuildReportResponse> {
-        const req = await this.fetch(
+        const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/build-report",
             {
                 method: "POST",
@@ -54,14 +54,14 @@ export class HttpTransport {
             }
         );
 
-        if (!req.ok) {
+        if (!res.ok) {
             return {
                 taskID: null,
                 status: "FAILED",
             };
         }
 
-        const response = await req.json();
+        const response = await res.json();
 
         return {
             taskID: response.task_id || null,
@@ -77,7 +77,7 @@ export class HttpTransport {
     async submitPreviewReportJob(
         reportSchema: IReportDefinition
     ): Promise<IBuildReportResponse> {
-        const req = await this.fetch(
+        const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/preview-report",
             {
                 method: "POST",
@@ -89,14 +89,14 @@ export class HttpTransport {
             }
         );
 
-        if (!req.ok) {
+        if (!res.ok) {
             return {
                 taskID: null,
                 status: "FAILED",
             };
         }
 
-        const response = await req.json();
+        const response = await res.json();
 
         return {
             taskID: response.task_id || null,
@@ -110,7 +110,7 @@ export class HttpTransport {
      * @returns Task status and any error message if task has failed
      */
     async getTaskStatus(taskID: string): Promise<ITaskStatusResponse> {
-        const req = await this.fetch(
+        const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/get-task-status?" +
                 new URLSearchParams({
                     api_key: this.apiKey,
@@ -124,14 +124,14 @@ export class HttpTransport {
             }
         );
 
-        if (!req.ok) {
+        if (!res.ok) {
             return {
                 status: null,
                 errorMessage: "Error retrieving task status!",
             };
         }
 
-        const response = await req.json();
+        const response = await res.json();
 
         return {
             status: response.status || null,
