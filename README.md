@@ -5,21 +5,27 @@
 </div>
 
 <div align="center">
-    Hybiscus is a cloud based service for building PDF reports using pre-designed components that look impressive without any effort. Simply define the content using a simple JSON API and get a PDF in return in a matter of seconds.
+    Hybiscus is a cloud based service for building PDF reports using pre-designed components that look impressive without any effort. Simply define the content using a simple JSON schema and get a PDF in a matter of seconds.
 </div>
 
 ---
 
 # 🌺 Hybiscus SDK (NodeJS)
 ![](https://img.shields.io/github/stars/hybiscus-dev/nodejs-hybiscus-sdk?style=social)
+[![npm version](https://badge.fury.io/js/@hybiscus%2Fweb-api.svg)](https://badge.fury.io/js/@hybiscus%2Fweb-api)
 ![CI workflow](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/actions/workflows/ci.yml/badge.svg)
 ![](https://img.shields.io/github/license/hybiscus-dev/nodejs-hybiscus-sdk)
 ![](https://img.shields.io/npm/dm/@hybiscus/web-api)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/hybiscus-dev/nodejs-hybiscus-sdk)
 > NodeJS SDK for interacting with the Hybiscus API
 
+---
+### ⚠️ Breaking changes in v1
+ The `v1` release of this library contains breaking changes from the `v0.X` version. The most major change is the shift from `camelCase` for the variable naming inside the options for Reports and Components, to `snake_case`, which closely aligns with the API variable naming style. This means the documentation on [Hybiscus Docs](https://hybiscus.dev/docs) can be used directly with this library, without needing to know to convert between formats.
+
+--- 
 ## 🪛 Requirements
-- NodeJS 12.X or newer
+- NodeJS 14.X or newer
 
 ## 🛠 Installation
 The library can be installed via `npm` as follows:
@@ -31,7 +37,7 @@ $   npm install @hybiscus/web-api
 ## 🚀 Usage
 The NodeJS SDK provides a declarative API for building up the report and the components inside it. Below is a simple example to get you started:
 
-> **Note** To use the Hybiscus API, you require an API key which you can get by signing up at [https://hybiscus.dev/signup](https://hybiscus.dev/signup) for a **Free trial**. For more details on the plans, see [here](https://hybiscus.dev/plans).
+> **Note** To use the Hybiscus API, you will require an API key which you can get by signing up at [https://hybiscus.dev/signup](https://hybiscus.dev/signup) for a **Free trial**. For more details of the plans on offer, see [here](https://hybiscus.dev/plans).
 
 ### Quick start
 
@@ -39,13 +45,13 @@ The NodeJS SDK provides a declarative API for building up the report and the com
 import {
     HybiscusClient,
     Report,
-    Components: {
-        Row, Section, Table
-    }
+    Components
 } from "@hybiscus/web-api";
+const { Core } = Components;
+const { Section, Table, Row } = Core;
 
 
-const section = new Section({ sectionTitle: "title" }).addComponents([
+const section = new Section({ section_title: "title" }).addComponents([
     new Row({ width: "2/3" }),
     new Row({ width: "2/3" }).addComponents([
         new Table({
@@ -59,8 +65,8 @@ const section = new Section({ sectionTitle: "title" }).addComponents([
     ]),
 ]);
 const report = new Report({
-    reportTitle: "Report title",
-    reportByline: "The byline" 
+    report_title: "Report title",
+    report_byline: "The byline" 
 }).addComponent(section);
 
 const client = new HybiscusClient(process.env.HYBISCUS_API_KEY);
@@ -90,16 +96,18 @@ Classes are available for each of the components in the Hybiscus API. All compon
 Components which are specified as extendable in the API docs, have the optional method `.addComponents` or `.addComponent`, which you can use to add components within them. Components can be deeply nested through this way, giving a lot flexibility.
 
 ```js
-import { Components: { Section, Text } } from "@hybiscus/web-api";
+import { Components } from "@hybiscus/web-api";
+const { Core } = Components;
+const { Section, Text } = Components;
 
-const section = new Section({ sectionTitle: "title" })
+const section = new Section({ section_title: "title" })
     .addComponents([
-        new Section({ sectionTitle: "Sub-section" })
+        new Section({ section_title: "Sub-section" })
             .addComponents([
                 new Text({ text: "Example text" }),
                 new Text({ text: "More example text" }),
             ]);
-        new Section({ sectionTitle: "Sub-section" })
+        new Section({ section_title: "Sub-section" })
             .addComponents([
                 new Text({ text: "Example text" }),
                 new Text({ text: "More example text" }),
