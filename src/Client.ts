@@ -9,7 +9,7 @@ import { HttpTransport, ITaskStatusResponse } from "./HttpTransport";
 interface IPDFReport {
     url: string | null;
     taskID: string | null;
-    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED";
+    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED" | null;
     errorMessage: string | null;
 }
 
@@ -54,6 +54,7 @@ class HybiscusClient {
             );
             status = response.status;
             taskID = response.taskID;
+            errorMessage = response.error;
         }
         if (taskID !== null) {
             const response = await this.api.getTaskStatus(taskID);
@@ -97,7 +98,7 @@ class HybiscusClient {
             return {
                 url: null,
                 taskID,
-                status: "FAILED",
+                status,
                 errorMessage: errorMessage || null,
             };
         }
@@ -131,6 +132,7 @@ class HybiscusClient {
             );
             status = response.status;
             taskID = response.taskID;
+            errorMessage = response.error;
         }
         if (taskID !== null) {
             const response = await this.api.getTaskStatus(taskID);
@@ -174,7 +176,7 @@ class HybiscusClient {
             return {
                 url: null,
                 taskID,
-                status: "FAILED",
+                status,
                 errorMessage: errorMessage || null,
             };
         }
