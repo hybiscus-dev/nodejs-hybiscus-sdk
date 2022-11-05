@@ -1,3 +1,8 @@
+# v1.0.0
+- Switch from `camelCase` to `snake_case` for options and configuration options inside Report and Component classes.
+- Re-organise components into `Core` and `Premium` components
+- Add support for TypeScript
+- Minimum NodeJS version increased to v14.X
 # v0.3.0
 - Add support for CommonJS and ESM module usage of library
 # v0.2.7

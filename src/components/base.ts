@@ -1,22 +1,33 @@
+import { IOptions } from "./types";
+
 interface IComponentDefinition {
     type: string;
-    options: Record<string, unknown>;
+    options: IOptions;
     components?: Array<IComponentDefinition>;
 }
 
-abstract class Component {
-    type: string;
+class Component {
+    componentType: string;
+    options: IOptions;
 
     /**
      * Constructor for the component
      * @param config
      * @param config.type - Component type
      */
-    constructor({ type }: { type: string }) {
-        this.type = type;
+    constructor(options: IOptions, componentType: string) {
+        this.componentType = componentType;
+        this.options = options;
     }
 
-    abstract getDefinition(): IComponentDefinition;
+    getDefinition(): IComponentDefinition {
+        return {
+            type: this.componentType,
+            options: {
+                ...this.options,
+            },
+        };
+    }
 }
 
 class ComponentExtendable extends Component {
@@ -27,8 +38,8 @@ class ComponentExtendable extends Component {
      * @param config
      * @param config.type - Component type
      */
-    constructor({ type }: { type: string }) {
-        super({ type });
+    constructor(options: IOptions, componentType: string) {
+        super(options, componentType);
         this.components = [];
     }
 
@@ -38,9 +49,11 @@ class ComponentExtendable extends Component {
      */
     getDefinition(): IComponentDefinition {
         return {
-            type: this.type,
-            options: {},
-            components: [],
+            type: this.componentType,
+            options: {
+                ...this.options,
+            },
+            components: this.components.map(c => c.getDefinition()),
         };
     }
 

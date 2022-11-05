@@ -27,3 +27,5 @@ export interface IDoughnutRingData {
     label: string | null;
     colour: string | null;
 }
+
+export type IOptions = Record<string, unknown>;

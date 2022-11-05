@@ -1,23 +1,25 @@
 import { Component } from "../base";
 import { WidthType, IData, IOptions } from "../types";
 
-export interface ILineChartOptions extends IOptions {
+export interface IBarChartV2Options extends IOptions {
     data: Array<IData>;
     x_label: string;
     y_label: string;
-    colour_by?: string | null;
+    color_scheme?: string;
+    font_size?: number;
+    aspect_ratio?: number;
     chart_title?: string | null;
     caption?: string | null;
     width?: WidthType;
 }
 
-class LineChart extends Component {
+class BarChartV2 extends Component {
     constructor(
-        options: ILineChartOptions = <ILineChartOptions>{},
-        componentType = "LineChart"
+        options: IBarChartV2Options = <IBarChartV2Options>{},
+        componentType = "BarChart"
     ) {
         super(options, componentType);
     }
 }
 
-export { LineChart };
+export { BarChartV2 };

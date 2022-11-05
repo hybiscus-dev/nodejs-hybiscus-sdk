@@ -1,12 +1,12 @@
 {
-    "plugins": [],
     "recurseDepth": 10,
     "source": {
         "include": [
-            "lib/Client.js",
-            "lib/Report.js",
-            "lib/HttpTransport.js",
-            "lib/components/core/index.js"
+            "lib/esm/Client.js",
+            "lib/esm/Report.js",
+            "lib/esm/HttpTransport.js",
+            "lib/esm/components/core/index.js",
+            "lib/esm/components/premium/index.js"
         ],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"

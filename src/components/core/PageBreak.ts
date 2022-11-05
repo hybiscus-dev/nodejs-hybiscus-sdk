@@ -1,18 +1,12 @@
-import { Component, IComponentDefinition } from "../base";
+import { Component } from "../base";
+import { IOptions } from "../types";
 
 class PageBreak extends Component {
     /**
      * PageBreak constructor
      */
-    constructor() {
-        super({ type: "PageBreak" });
-    }
-
-    getDefinition(): IComponentDefinition {
-        return {
-            type: this.type,
-            options: {},
-        };
+    constructor(options: IOptions = <IOptions>{}, componentType = "PageBreak") {
+        super(options, componentType);
     }
 }
 

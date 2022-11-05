@@ -1,12 +1,17 @@
 import crossFetch from "cross-fetch";
 import { IReportDefinition } from "./Report";
-interface IBuildReportResponse {
+import getPackageVersion from '@jsbits/get-package-version'
+
+const version = getPackageVersion();
+
+interface IBuildPReviewReportResponse {
     taskID: string | null;
-    status: string;
+    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED" | null;
+    error?: string | null;
 }
 
 export interface ITaskStatusResponse {
-    status: string | null;
+    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED" | null;
     errorMessage: string | null;
 }
 
@@ -41,8 +46,8 @@ export class HttpTransport {
      */
     async submitBuildReportJob(
         reportSchema: IReportDefinition
-    ): Promise<IBuildReportResponse> {
-        const req = await this.fetch(
+    ): Promise<IBuildPReviewReportResponse> {
+        const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/build-report",
             {
                 method: "POST",
@@ -50,19 +55,19 @@ export class HttpTransport {
                 headers: {
                     "Content-Type": "application/json",
                     "X-API-KEY": this.apiKey,
+                    "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${version}`,
                 },
             }
         );
-
-        if (!req.ok) {
+        const response = await res.json();
+        if (!res.ok) {
+            const errorMessage = response.detail ?? null;
             return {
                 taskID: null,
                 status: "FAILED",
+                error: errorMessage
             };
         }
-
-        const response = await req.json();
-
         return {
             taskID: response.task_id || null,
             status: response.status || null,
@@ -76,8 +81,8 @@ export class HttpTransport {
      */
     async submitPreviewReportJob(
         reportSchema: IReportDefinition
-    ): Promise<IBuildReportResponse> {
-        const req = await this.fetch(
+    ): Promise<IBuildPReviewReportResponse> {
+        const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/preview-report",
             {
                 method: "POST",
@@ -85,19 +90,19 @@ export class HttpTransport {
                 headers: {
                     "Content-Type": "application/json",
                     "X-API-KEY": this.apiKey,
+                    "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${version}`,
                 },
             }
         );
-
-        if (!req.ok) {
+        const response = await res.json();
+        if (!res.ok) {
+            const errorMessage = response.detail ?? null;
             return {
                 taskID: null,
                 status: "FAILED",
+                error: errorMessage
             };
         }
-
-        const response = await req.json();
-
         return {
             taskID: response.task_id || null,
             status: response.status || null,
@@ -110,7 +115,7 @@ export class HttpTransport {
      * @returns Task status and any error message if task has failed
      */
     async getTaskStatus(taskID: string): Promise<ITaskStatusResponse> {
-        const req = await this.fetch(
+        const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/get-task-status?" +
                 new URLSearchParams({
                     api_key: this.apiKey,
@@ -120,18 +125,19 @@ export class HttpTransport {
                 method: "GET",
                 headers: {
                     "X-API-KEY": this.apiKey,
+                    "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${version}`,
                 },
             }
         );
 
-        if (!req.ok) {
+        if (!res.ok) {
             return {
                 status: null,
                 errorMessage: "Error retrieving task status!",
             };
         }
 
-        const response = await req.json();
+        const response = await res.json();
 
         return {
             status: response.status || null,

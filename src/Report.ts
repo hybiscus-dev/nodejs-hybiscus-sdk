@@ -1,80 +1,56 @@
 import { Component, IComponentDefinition } from "./components/base";
 
-interface IReportDefinition {
-    type: string;
-    options: Record<string, unknown>;
-    config: Record<string, unknown>;
-    components: Array<IComponentDefinition>;
-}
+
 
 interface ICloudStorage {
-    s3: string | null;
-    azureBlobStorage: string | null;
-    googleCloudStorage: string | null;
+    s3?: string;
+    azure_blob_storage?: string;
+    google_cloud_storage?: string;
 }
 
 interface IWebhooks {
     url: string;
-    authHeader: string | null;
+    auth_header: string | null;
+}
+
+interface IReportOptions {
+    report_title: string;
+    logo_url?: string;
+    report_byline?: string;
+    version_number?: string;
+    enable_header?: boolean;
+}
+
+interface IReportDefinition {
+    type: string;
+    options: IReportOptions;
+    config: IReportConfig;
+    components: Array<IComponentDefinition>;
 }
 
 interface IReportConfig {
-    colourTheme: string | null;
-    typographyTheme: string | null;
-    overrideColourTheme: Record<string, unknown>;
-    cloudStorage: ICloudStorage;
-    webhooks: Array<IWebhooks>;
+    n_pages?: number;
+    enable_header?: boolean;
+    colour_theme?: string;
+    landscape?: boolean;
+    typography_theme?: string;
+    enable_pagination?: boolean;
+    override_colour_theme?: Record<string, unknown>;
+    cloud_storage?: ICloudStorage;
+    webhooks?: Array<IWebhooks>;
 }
 
 class Report {
-    reportTitle: string;
-    reportByline: string;
-    versionNumber: string;
-    logoUrl: string | null;
-    nPages: number;
-    reportConfig: IReportConfig;
-    components: Array<Component>;
+    options: IReportOptions;
+    config: IReportConfig;
+    components: Component[];
 
-    /**
-     *
-     * @param config Component config
-     * @param config.reportTitle Report title
-     * @param config.reportByline Report byline (optional)
-     * @param config.versionNumber Report version number (optional)
-     * @param config.reportConfig Report config (optional)
-     * @param config.nPages Number of pages (optional)
-     */
-    constructor({
-        reportTitle,
-        reportByline = "",
-        versionNumber = "",
-        logoUrl = null,
-        nPages = 1,
-        reportConfig = {
-            colourTheme: "default",
-            typographyTheme: "default",
-            overrideColourTheme: {},
-            cloudStorage: {
-                s3: null,
-                azureBlobStorage: null,
-                googleCloudStorage: null,
-            },
-            webhooks: []
-        },
-    }: {
-        reportTitle: string;
-        reportByline?: string;
-        versionNumber?: string;
-        logoUrl?: string | null;
-        nPages?: number;
-        reportConfig?: IReportConfig;
-    }) {
-        this.reportTitle = reportTitle;
-        this.reportByline = reportByline;
-        this.versionNumber = versionNumber;
-        this.logoUrl = logoUrl;
-        this.nPages = nPages;
-        this.reportConfig = reportConfig;
+    constructor(
+        options: IReportOptions = <IReportOptions>{},
+        config: IReportConfig = <IReportConfig>{}
+    ) {
+        this.options = options;
+        this.config = config;
         this.components = [];
         return this;
     }
@@ -101,24 +77,10 @@ class Report {
         return {
             type: "Report",
             options: {
-                report_title: this.reportTitle,
-                report_byline: this.reportByline,
-                version_number: this.versionNumber,
-                logo_url: this.logoUrl,
+                ...this.options,
             },
             config: {
-                n_pages: this.nPages,
-                colour_theme: this.reportConfig.colourTheme,
-                typography_theme: this.reportConfig.typographyTheme,
-                override_colour_theme: this.reportConfig.overrideColourTheme,
-                cloud_storage: {
-                    s3: this.reportConfig.cloudStorage.s3,
-                    azure_blob_storage:
-                        this.reportConfig.cloudStorage.azureBlobStorage,
-                    google_cloud_storage:
-                        this.reportConfig.cloudStorage.googleCloudStorage,
-                },
-                webhooks: this.reportConfig.webhooks
+                ...this.config,
             },
             components: this.components.map((c) => c.getDefinition()),
         };
