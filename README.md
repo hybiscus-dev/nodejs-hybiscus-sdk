@@ -37,7 +37,8 @@ $   npm install @hybiscus/web-api
 ## 🚀 Usage
 The NodeJS SDK provides a declarative API for building up the report and the components inside it. Below is a simple example to get you started:
 
-> **Note** To use the Hybiscus API, you will require an API key which you can get by signing up at [https://hybiscus.dev/signup](https://hybiscus.dev/signup) for a **Free trial**. For more details of the plans on offer, see [here](https://hybiscus.dev/plans).
+> **Note**
+> To use the Hybiscus API, you will require an API key which you can get by signing up at [https://hybiscus.dev/signup](https://hybiscus.dev/signup) for a **Free trial**. For more details of the plans on offer, see [here](https://hybiscus.dev/plans).
 
 ### Quick start
 
@@ -91,7 +92,11 @@ interface IPDFReport {
 ```
 
 ### Components
-Classes are available for each of the components in the Hybiscus API. All component classes follow the same basic principle, initialise the component class using the options that are specified in the [API docs](https://hybiscus.dev/docs/components/section). The only difference with the TypeScript / NodeJS library is that instead of using `snake_case` formatting for the names, the names are changed to `camelCase`
+Classes are available for each of the components in the Hybiscus API. All component classes follow the same basic principle, initialise the component class using the options that are specified in the [API docs](https://hybiscus.dev/docs/components/section). ~~The only difference with the TypeScript / NodeJS library is that instead of using `snake_case` formatting for the names, the names are changed to `camelCase`.~~
+
+> **Note**
+> As of `v1.x`, the variable naming format is maintained as 
+> `snake_case` in line with the API format.
 
 Components which are specified as extendable in the API docs, have the optional method `.addComponents` or `.addComponent`, which you can use to add components within them. Components can be deeply nested through this way, giving a lot flexibility.
 
