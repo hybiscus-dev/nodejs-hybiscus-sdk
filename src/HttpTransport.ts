@@ -1,5 +1,7 @@
 import crossFetch from "cross-fetch";
 import { IReportDefinition } from "./Report";
+import packageJSON from "../package.json";
+
 interface IBuildReportResponse {
     taskID: string | null;
     status: string;
@@ -50,6 +52,7 @@ export class HttpTransport {
                 headers: {
                     "Content-Type": "application/json",
                     "X-API-KEY": this.apiKey,
+                    "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${packageJSON.version}`,
                 },
             }
         );
@@ -85,6 +88,7 @@ export class HttpTransport {
                 headers: {
                     "Content-Type": "application/json",
                     "X-API-KEY": this.apiKey,
+                    "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${packageJSON.version}`,
                 },
             }
         );
@@ -120,6 +124,7 @@ export class HttpTransport {
                 method: "GET",
                 headers: {
                     "X-API-KEY": this.apiKey,
+                    "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${packageJSON.version}`,
                 },
             }
         );
