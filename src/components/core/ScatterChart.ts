@@ -12,20 +12,6 @@ export interface IScatterChartOptions extends IOptions {
 }
 
 class ScatterChart extends Component {
-
-    /**
-     * Scatter chart constructor
-     * @param config Component config
-     * @param config.data Data to plot in the chart
-     * @param config.xLabel X-axis label
-     * @param config.ylabel Y-axis label
-     * @param config.colourBy Key in `data` to objects to use to colour each
-     * point by. Optional.
-     * @param config.chartTitle Title of the chart. Optional.
-     * @param config.caption Caption to add below chart. Optional.
-     * @param config.width Width of the component
-     */
-
     constructor(
         options: IScatterChartOptions = <IScatterChartOptions>{},
         componentType = "ScatterChart"

@@ -6,12 +6,6 @@ export interface ISpacerOptions extends IOptions {
 }
 
 class Spacer extends Component {
-
-    /**
-     * Spacer constructor
-     * @param config Component config
-     * @param config.space Amount of vertical spacing to add
-     */
     constructor(
         options: ISpacerOptions = <ISpacerOptions>{},
         componentType = "Spacer"

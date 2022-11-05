@@ -12,19 +12,6 @@ export interface ILineChartOptions extends IOptions {
 }
 
 class LineChart extends Component {
-
-    /**
-     * Line chart constructor
-     * @param config Component config
-     * @param config.data Data to plot in the chart
-     * @param config.xLabel X-axis label
-     * @param config.ylabel Y-axis label
-     * @param config.colourBy Key in data object to colour line plots by.
-     * Optional.
-     * @param config.chartTitle Title of the chart. Optional.
-     * @param config.caption Caption to add below chart. Optional.
-     * @param config.width Width of the component
-     */
     constructor(
         options: ILineChartOptions = <ILineChartOptions>{},
         componentType = "LineChart"

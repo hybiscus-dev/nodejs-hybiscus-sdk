@@ -14,19 +14,6 @@ export interface IHorizontalBarChartOptions extends IOptions {
 }
 
 class HorizontalBarChart extends Component {
-    /**
-     * Horizontal bar chart constructor
-     * @param config Component config
-     * @param config.data Data to plot in the chart
-     * @param config.xLabel X-axis label
-     * @param config.ylabel Y-axis label
-     * @param config.colorScheme Color scheme to use to plot the data
-     * @param config.fontSize The font size of the labels
-     * @param config.aspectRatio Aspect ratio of the plot as a decimal
-     * @param config.chartTitle Title of the chart. Optional.
-     * @param config.caption Caption to add below chart. Optional.
-     * @param config.width Width of the component
-     */
     constructor(
         options: IHorizontalBarChartOptions = <IHorizontalBarChartOptions>{},
         componentType = "Chart.HorizontalBar"

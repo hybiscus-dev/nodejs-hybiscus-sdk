@@ -11,7 +11,6 @@ export interface ICardOptions extends IOptions {
 }
 
 class Card extends Component {
-
     constructor(
         options: ICardOptions = <ICardOptions>{},
         componentType = "Card"

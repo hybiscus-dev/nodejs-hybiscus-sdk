@@ -14,13 +14,6 @@ export interface ITextOptions extends IOptions {
 }
 
 class Text extends Component {
-
-    /**
-     * Text constructor
-     * @param config Component config
-     * @param config.text Text to add inside the component
-     * @param config.width Width of the component
-     */
     constructor(
         options: ITextOptions = <ITextOptions>{},
         componentType = "Text"

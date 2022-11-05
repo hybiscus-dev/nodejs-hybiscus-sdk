@@ -1,6 +1,8 @@
 import { Component } from "../base";
 import { WidthType, IData, IOptions } from "../types";
 
+
+
 export interface IBarChartOptions extends IOptions {
     data: Array<IData>;
     x_label: string;
@@ -9,18 +11,9 @@ export interface IBarChartOptions extends IOptions {
     caption?: string | null;
     width?: WidthType;
 }
-class BarChart extends Component {
 
-    /**
-     * Bar chart constructor
-     * @param config Component config
-     * @param config.data Data to plot in the chart
-     * @param config.xLabel X-axis label
-     * @param config.ylabel Y-axis label
-     * @param config.chartTitle Title of the chart. Optional.
-     * @param config.caption Caption to add below chart. Optional.
-     * @param config.width Width of the component
-     */
+
+class BarChart extends Component {
     constructor(
         options: IBarChartOptions = <IBarChartOptions>{},
         componentType = "BarChart"

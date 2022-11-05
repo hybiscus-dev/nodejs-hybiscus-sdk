@@ -27,15 +27,6 @@ export interface ITableOptions extends IOptions {
 }
 
 class Table extends Component {
-
-    /**
-     * Table constructor
-     * @param config Component config
-     * @param config.title Table title
-     * @param config.headings Table headings
-     * @param config.rows Table rows
-     * @param config.striped Whether table is striped
-     */
     constructor(
         options: ITableOptions = <ITableOptions>{},
         componentType = "Table"
