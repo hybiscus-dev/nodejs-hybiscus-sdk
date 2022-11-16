@@ -1,3 +1,5 @@
+# v1.1.0
+- Add support for new `VerticalSpacer` component
 # v1.0.0
 - Switch from `camelCase` to `snake_case` for options and configuration options inside Report and Component classes.
 - Re-organise components into `Core` and `Premium` components
