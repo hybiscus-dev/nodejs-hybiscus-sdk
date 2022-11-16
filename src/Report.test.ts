@@ -1,6 +1,6 @@
 import { Report } from "./Report";
 import { Core } from "./components";
-const { Section, Card, Text, Row, Table } = Core;
+const { Section, Card, Text, Row, Table, VerticalSpacer } = Core;
 
 describe("Test making reports", () => {
     it("Example report", () => {
@@ -110,6 +110,11 @@ describe("Test making reports", () => {
                         ["/products/keyboards", "Keyboards", "2,248"],
                         ["/products/graphics-cards", "Graphics cards", "973"],
                     ],
+                }),
+                
+            ).addComponent(
+                new VerticalSpacer({
+                    space: 0.5
                 })
             ),
             new Section({
@@ -306,6 +311,12 @@ describe("Test making reports", () => {
                                 ],
                             },
                         },
+                        {
+                            "type": "VerticalSpacer",
+                            "options": {
+                                "space": 0.5
+                            }
+                        }
                     ],
                 },
                 {
