@@ -6,6 +6,9 @@ export interface ISectionOptions extends IOptions {
     highlighted?: boolean;
     icon?: string | null;
     columns?: number | null;
+    horizontal_margin?: number;
+    vertical_margin?: number;
+    column_spacing?: number;
 }
 
 class Section extends ComponentExtendable {

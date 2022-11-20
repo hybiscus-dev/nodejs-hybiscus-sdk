@@ -5,6 +5,9 @@ export interface IRowOptions extends IOptions {
     width?: WidthType;
     columns?: number | null;
     align?: "left" | "centre" | "right";
+    horizontal_margin?: number;
+    vertical_margin?: number;
+    column_spacing?: number;
 }
 
 class Row extends ComponentExtendable {
