@@ -15,6 +15,31 @@ export type WidthType =
     | "5/6"
     | null;
 
+export type ColorScheme = 
+    | "Category10"
+    | "Accent"
+    | "Dark2"
+    | "Paired"
+    | "Pastel1"
+    | "Pastel2"
+    | "Set1"
+    | "Set2"
+    | "Set3"
+    | "Tableau10"
+    | null;
+
+export type CurveFormat = 
+    | "Linear"
+    | "Step"
+    | "Basis"
+    | "StepBefore"
+    | "StepAfter"
+    | "Natural"
+    | "Cardinal"
+    | "CatmullRom"
+    | "MonotoneX"
+    | null;
+
 export interface IData {
     x: string | number;
     y: number;
