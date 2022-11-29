@@ -1,3 +1,6 @@
+# v1.3.0
+- Add support for `Chart.Timeseries` component
+- Add support for new customisation options for chart components
 # v1.2.0
 - Add typing support for `vertical_margin`, `horizontal_margin` and
   `column_spacing` options for the `Section` and `Row` components.
