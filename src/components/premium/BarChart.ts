@@ -8,6 +8,10 @@ export interface IBarChartV2Options extends IOptions {
     color_scheme?: string;
     font_size?: number;
     aspect_ratio?: number;
+    grouped_bars?: boolean;
+    horizontal_margin?: number;
+    vertical_margin?: number;
+    margin?: number;
     chart_title?: string | null;
     caption?: string | null;
     width?: WidthType;

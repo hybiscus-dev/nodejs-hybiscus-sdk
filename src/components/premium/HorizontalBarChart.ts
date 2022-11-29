@@ -9,6 +9,9 @@ export interface IHorizontalBarChartOptions extends IOptions {
     font_size?: number;
     aspect_ratio?: number;
     chart_title?: string | null;
+    horizontal_margin?: number;
+    vertical_margin?: number;
+    margin?: number;
     caption?: string | null;
     width?: WidthType;
 }
