@@ -1,14 +1,14 @@
 import { Component } from "../base";
-import { IOptions } from "../types";
+import { IComponentOptions } from "../types";
 
-export interface IVerticalSpacerOptions extends IOptions {
+export interface IVerticalSpacerOptions extends IComponentOptions {
     space: number;
 }
 
 class VerticalSpacer extends Component {
     constructor(
         options: IVerticalSpacerOptions = <IVerticalSpacerOptions>{},
-        componentType = "VerticalSpacer"
+        componentType = "VerticalSpacer",
     ) {
         super(options, componentType);
     }

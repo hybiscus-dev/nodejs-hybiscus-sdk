@@ -1,12 +1,9 @@
 import { ComponentExtendable } from "../base";
-import { WidthType, IOptions } from "../types";
+import { IComponentOptions } from "../types";
 
-export interface IRowOptions extends IOptions {
-    width?: WidthType;
+export interface IRowOptions extends IComponentOptions {
     columns?: number | null;
-    align?: "left" | "centre" | "right";
-    horizontal_margin?: number;
-    vertical_margin?: number;
+    align?: "left" | "centre" | "center" | "right";
     column_spacing?: number;
 }
 

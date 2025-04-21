@@ -1,8 +1,6 @@
 import crossFetch from "cross-fetch";
 import { IReportDefinition } from "./Report";
-import getPackageVersion from '@jsbits/get-package-version'
-
-const version = getPackageVersion();
+import { version } from "./version";
 
 interface IBuildPReviewReportResponse {
     taskID: string | null;
@@ -45,7 +43,7 @@ export class HttpTransport {
      * @returns The task ID and task status
      */
     async submitBuildReportJob(
-        reportSchema: IReportDefinition
+        reportSchema: IReportDefinition,
     ): Promise<IBuildPReviewReportResponse> {
         const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/build-report",
@@ -57,7 +55,7 @@ export class HttpTransport {
                     "X-API-KEY": this.apiKey,
                     "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${version}`,
                 },
-            }
+            },
         );
         const response = await res.json();
         if (!res.ok) {
@@ -65,7 +63,7 @@ export class HttpTransport {
             return {
                 taskID: null,
                 status: "FAILED",
-                error: errorMessage
+                error: errorMessage,
             };
         }
         return {
@@ -80,7 +78,7 @@ export class HttpTransport {
      * @returns The task ID and task status
      */
     async submitPreviewReportJob(
-        reportSchema: IReportDefinition
+        reportSchema: IReportDefinition,
     ): Promise<IBuildPReviewReportResponse> {
         const res = await this.fetch(
             "https://api.hybiscus.dev/api/v1/preview-report",
@@ -92,7 +90,7 @@ export class HttpTransport {
                     "X-API-KEY": this.apiKey,
                     "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${version}`,
                 },
-            }
+            },
         );
         const response = await res.json();
         if (!res.ok) {
@@ -100,7 +98,7 @@ export class HttpTransport {
             return {
                 taskID: null,
                 status: "FAILED",
-                error: errorMessage
+                error: errorMessage,
             };
         }
         return {
@@ -127,7 +125,7 @@ export class HttpTransport {
                     "X-API-KEY": this.apiKey,
                     "X-HYB-CLIENT": `hybiscus-nodejs-sdk-v${version}`,
                 },
-            }
+            },
         );
 
         if (!res.ok) {
@@ -155,9 +153,8 @@ export class HttpTransport {
         return new Promise((resolve, reject) => {
             const interval: ReturnType<typeof setInterval> = setInterval(
                 async () => {
-                    const { status, errorMessage } = await this.getTaskStatus(
-                        taskID
-                    );
+                    const { status, errorMessage } =
+                        await this.getTaskStatus(taskID);
                     if (status === "SUCCESS") {
                         clearInterval(interval);
                         resolve({
@@ -174,7 +171,7 @@ export class HttpTransport {
                         return;
                     }
                 },
-                750
+                750,
             );
         });
     }

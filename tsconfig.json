@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "target": "es6",
+        "allowJs": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "declaration": true,
+        "lib": ["dom", "ES6", "es2015", "es2016", "es2017", "ES2022"],
+        "skipLibCheck": true,
+        "module": "ESNext",
+        "outDir": "dist/esm",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "rootDir": "src",
+        "types": ["node", "jest"]
+    },
+    "include": ["./src/**/*.ts", "./src/**/*.tsx"],
+    "exclude": ["node_modules", "dist"]
+}

@@ -1,20 +1,19 @@
 import { ComponentExtendable } from "../base";
-import { IOptions } from "../types";
+import { FontSize, IComponentOptions } from "../types";
 
-export interface ISectionOptions extends IOptions {
+export interface ISectionOptions extends IComponentOptions {
     section_title: string;
-    highlighted?: boolean;
-    icon?: string | null;
     columns?: number | null;
-    horizontal_margin?: number;
-    vertical_margin?: number;
+    icon?: string | null;
+    highlighted?: boolean;
     column_spacing?: number;
+    font_size?: FontSize;
 }
 
 class Section extends ComponentExtendable {
     constructor(
         options: ISectionOptions = <ISectionOptions>{},
-        componentType = "Section"
+        componentType = "Section",
     ) {
         super(options, componentType);
     }
