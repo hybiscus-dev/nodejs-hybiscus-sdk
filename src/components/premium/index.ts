@@ -3,3 +3,7 @@ export { BarChartV2 } from "./BarChart";
 export { HorizontalBarChart } from "./HorizontalBarChart";
 export { DoughnutRing } from "./DoughnutRing";
 export { TimeseriesChart } from "./TimeseriesChart";
+export { ProgressBar } from "./ProgressBar";
+export { SparkChartLine } from "./SparkChartLine";
+export { SparkChartRing } from "./SparkChartRing";
+export { DataTable } from "./DataTable";

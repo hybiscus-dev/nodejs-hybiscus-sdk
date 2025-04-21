@@ -49,9 +49,8 @@ class HybiscusClient {
             reportDefinition = reportSchema;
         }
         {
-            const response = await this.api.submitBuildReportJob(
-                reportDefinition
-            );
+            const response =
+                await this.api.submitBuildReportJob(reportDefinition);
             status = response.status;
             taskID = response.taskID;
             errorMessage = response.error;
@@ -127,9 +126,8 @@ class HybiscusClient {
             reportDefinition = reportSchema;
         }
         {
-            const response = await this.api.submitPreviewReportJob(
-                reportDefinition
-            );
+            const response =
+                await this.api.submitPreviewReportJob(reportDefinition);
             status = response.status;
             taskID = response.taskID;
             errorMessage = response.error;

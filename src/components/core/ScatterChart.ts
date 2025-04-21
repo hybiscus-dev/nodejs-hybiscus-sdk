@@ -1,20 +1,20 @@
 import { Component } from "../base";
-import { WidthType, IData, IOptions } from "../types";
+import { IData, IComponentOptions } from "../types";
 
-export interface IScatterChartOptions extends IOptions {
+export interface IScatterChartOptions extends IComponentOptions {
     data: Array<IData>;
     x_label: string;
     y_label: string;
-    colour_by?: string | null;
     chart_title?: string | null;
     caption?: string | null;
-    width?: WidthType;
+    radius?: number | null;
+    colour_by?: string | null;
 }
 
 class ScatterChart extends Component {
     constructor(
         options: IScatterChartOptions = <IScatterChartOptions>{},
-        componentType = "ScatterChart"
+        componentType = "ScatterChart",
     ) {
         super(options, componentType);
     }

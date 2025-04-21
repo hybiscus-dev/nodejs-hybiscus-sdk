@@ -1,35 +1,43 @@
 import { Component } from "../base";
-import { WidthType, IOptions } from "../types";
+import {
+    IComponentOptions,
+    ColorThemeVariable,
+    FontSize,
+    VerticalMargin,
+    HorizontalMargin,
+} from "../types";
 
-export interface ICellDescription {
+export interface ITableCell {
     content: string;
-    col_span: number;
-    col_align: string;
+    col_span?: number;
+    col_bg?: ColorThemeVariable;
+    col_align?: "left" | "centre" | "center" | "right";
+    valign?: "top" | "middle" | "bottom";
 }
 
-export interface RowCellDescription extends ICellDescription {
-    col_bg: string;
-}
-
-export interface ITableOptions extends IOptions {
-    title: string | null;
-    headings: Array<string | ICellDescription>;
-    width?: WidthType;
-    rows: Array<Array<string | RowCellDescription>>;
+export interface ITableOptions
+    extends IComponentOptions,
+        VerticalMargin,
+        HorizontalMargin {
+    rows: Array<Array<string | ITableCell>>;
+    title?: string | null;
+    headings?: Array<string | ITableCell>;
     striped?: boolean;
     table_border?: boolean;
-    horizontal_margin?: number;
-    vertical_margin?: number;
     col_border?: boolean;
-    col_align?: string[];
-    col_width?: number[];
-    col_bg?: string[];
+    rows_font_size?: FontSize;
+    headings_font_size?: FontSize;
+    rows_vertical_padding?: number;
+    headings_vertical_padding?: number;
+    col_align?: Array<"left" | "centre" | "center" | "right">;
+    col_width?: Array<number>;
+    col_bg?: Array<ColorThemeVariable>;
 }
 
 class Table extends Component {
     constructor(
         options: ITableOptions = <ITableOptions>{},
-        componentType = "Table"
+        componentType = "Table",
     ) {
         super(options, componentType);
     }

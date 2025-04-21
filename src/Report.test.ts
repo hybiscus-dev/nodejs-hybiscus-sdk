@@ -13,7 +13,7 @@ describe("Test making reports", () => {
             {
                 colour_theme: "forest",
                 typography_theme: "newspaper",
-            }
+            },
         ).addComponents([
             new Section({
                 section_title: "Overviews and KPI metrics",
@@ -95,28 +95,37 @@ describe("Test making reports", () => {
             ]),
             new Section({
                 section_title: "Key performing pages",
-            }).addComponent(
-                new Table({
-                    title: "",
-                    headings: ["URL", "Page title", "Views"],
-                    striped: true,
-                    rows: [
-                        ["/products/arduino", "Arduino accessories", "9,342"],
-                        [
-                            "/products/raspberry-pi",
-                            "Raspberry Pi accessories",
-                            "5,674",
+            })
+                .addComponent(
+                    new Table({
+                        title: "",
+                        headings: ["URL", "Page title", "Views"],
+                        striped: true,
+                        rows: [
+                            [
+                                "/products/arduino",
+                                "Arduino accessories",
+                                "9,342",
+                            ],
+                            [
+                                "/products/raspberry-pi",
+                                "Raspberry Pi accessories",
+                                "5,674",
+                            ],
+                            ["/products/keyboards", "Keyboards", "2,248"],
+                            [
+                                "/products/graphics-cards",
+                                "Graphics cards",
+                                "973",
+                            ],
                         ],
-                        ["/products/keyboards", "Keyboards", "2,248"],
-                        ["/products/graphics-cards", "Graphics cards", "973"],
-                    ],
-                }),
-                
-            ).addComponent(
-                new VerticalSpacer({
-                    space: 0.5
-                })
-            ),
+                    }),
+                )
+                .addComponent(
+                    new VerticalSpacer({
+                        space: 0.5,
+                    }),
+                ),
             new Section({
                 section_title: "Top performing referrers",
                 highlighted: true,
@@ -135,7 +144,7 @@ describe("Test making reports", () => {
                         ["Facebook", "facebook.com", "3,673"],
                         ["Twitter", "twitter.com", "2,190"],
                     ],
-                })
+                }),
             ),
         ]);
         const reportSchema = report.getDefinition();
@@ -147,6 +156,7 @@ describe("Test making reports", () => {
                 report_byline: "Monthly analytics report",
                 version_number: "v0.1.0",
             },
+            cover_page: null,
             config: {
                 colour_theme: "forest",
                 typography_theme: "newspaper",
@@ -312,11 +322,11 @@ describe("Test making reports", () => {
                             },
                         },
                         {
-                            "type": "VerticalSpacer",
-                            "options": {
-                                "space": 0.5
-                            }
-                        }
+                            type: "VerticalSpacer",
+                            options: {
+                                space: 0.5,
+                            },
+                        },
                     ],
                 },
                 {

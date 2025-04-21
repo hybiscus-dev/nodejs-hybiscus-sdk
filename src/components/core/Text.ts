@@ -1,22 +1,49 @@
 import { Component } from "../base";
-import { WidthType, IOptions } from "../types";
+import {
+    IComponentOptions,
+    MarginValue,
+    FontSize,
+    ColorThemeVariable,
+    VerticalMargin,
+    HorizontalMargin,
+} from "../types";
 
-export interface ITextOptions extends IOptions {
+export interface ITextOptions
+    extends IComponentOptions,
+        VerticalMargin,
+        HorizontalMargin {
     text: string;
-    width?: WidthType;
-    horizontal_margin?: number;
-    vertical_margin?: number;
-    align?: "left" | "centre" | "right";
-    size?: "sm" | "xs" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
-    colour?: string | null;
-    bg_colour?: string | null;
-    inner_padding?: number | null;
+    align?: "left" | "centre" | "center" | "right";
+    size?: FontSize;
+    color?: ColorThemeVariable;
+    bg_color?: ColorThemeVariable;
+    inner_padding?:
+        | 1
+        | 2
+        | 3
+        | 4
+        | 5
+        | 6
+        | 7
+        | 8
+        | 9
+        | 10
+        | 11
+        | 12
+        | 13
+        | 14
+        | 15
+        | 16
+        | 17;
+    markdown_format?: boolean;
+    align_list?: boolean;
+    headings_margin?: MarginValue;
 }
 
 class Text extends Component {
     constructor(
         options: ITextOptions = <ITextOptions>{},
-        componentType = "Text"
+        componentType = "Text",
     ) {
         super(options, componentType);
     }

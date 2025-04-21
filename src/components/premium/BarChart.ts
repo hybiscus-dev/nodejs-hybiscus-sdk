@@ -1,26 +1,16 @@
 import { Component } from "../base";
-import { WidthType, ColorScheme, IData, IOptions } from "../types";
+import { IChartV2Options } from "./common";
 
-export interface IBarChartV2Options extends IOptions {
-    data: Array<IData>;
-    x_label: string;
-    y_label: string;
-    color_scheme?: ColorScheme;
-    font_size?: number;
-    aspect_ratio?: number;
+export interface IBarChartV2Options extends IChartV2Options {
     grouped_bars?: boolean;
-    horizontal_margin?: number;
-    vertical_margin?: number;
-    margin?: number;
-    chart_title?: string | null;
-    caption?: string | null;
-    width?: WidthType;
+    format_y_ticks?: boolean;
+    y_ticks_decimals?: number;
 }
 
 class BarChartV2 extends Component {
     constructor(
         options: IBarChartV2Options = <IBarChartV2Options>{},
-        componentType = "BarChart"
+        componentType = "Chart.Bar",
     ) {
         super(options, componentType);
     }
