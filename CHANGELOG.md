@@ -1,3 +1,18 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [2.0.0-beta.0](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/compare/v1.3.0...v2.0.0-beta.0) (2025-04-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* refactor and update functions for latest version of cloud API HYB-242
+
+### Features
+
+* refactor and update functions for latest version of cloud API HYB-242 ([2aacf53](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/commit/2aacf533c2728e9089664e07b2b6721f0afa5c92)), closes [HYB-242](https://hybiscus.atlassian.net/jira/software/projects/HYB/boards/1?selectedIssue=HYB-242)
+
 # v1.3.0
 - Add support for `Chart.Timeseries` component
 - Add support for new customisation options for chart components
