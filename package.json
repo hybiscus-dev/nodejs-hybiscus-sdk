@@ -5,7 +5,7 @@
     "types": "./lib/cjs/types/index.d.ts",
     "main": "./lib/cjs/index.js",
     "files": [
-        "lib/**/*"
+        "dist/**/*"
     ],
     "scripts": {
         "clean": "rm -rf dist",
