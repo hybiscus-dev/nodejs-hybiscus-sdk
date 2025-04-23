@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0-beta.2](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2025-04-23)
+
 ## [2.0.0-beta.1](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2025-04-23)
 
 ## [2.0.0-beta.0](https://github.com/hybiscus-dev/nodejs-hybiscus-sdk/compare/v1.3.0...v2.0.0-beta.0) (2025-04-23)
