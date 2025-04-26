@@ -154,6 +154,7 @@ export interface IDoughnutRingData {
 
 export interface IComponentOptions {
     width?: WidthType;
+    [key: string]: unknown;
 }
 
 export interface VerticalMargin {

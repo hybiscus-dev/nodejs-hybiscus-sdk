@@ -10,7 +10,7 @@
         "declaration": true,
         "lib": ["dom", "ES6", "es2015", "es2016", "es2017", "ES2022"],
         "skipLibCheck": true,
-        "module": "ESNext",
+        "module": "CommonJS",
         "outDir": "dist/esm",
         "moduleResolution": "node",
         "resolveJsonModule": true,
