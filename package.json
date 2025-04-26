@@ -14,9 +14,9 @@
         "build:esm": "tsc",
         "build:cjs": "tsc --module commonjs --outDir dist/cjs",
         "dev": "tsc --watch",
-        "format": "npx prettier --write src",
-        "lint:check": "npx eslint src",
-        "lint:fix": "npx eslint src --fix",
+        "format": "pnpm dlx prettier --write src",
+        "lint:check": "pnpm dlx eslint src",
+        "lint:fix": "pnpm dlx eslint src --fix",
         "release": "commit-and-tag-version",
         "husky": "husky",
         "test": "jest",
@@ -44,12 +44,14 @@
     "devDependencies": {
         "@commitlint/cli": "^19.6.0",
         "@commitlint/config-conventional": "^19.6.0",
-        "@eslint/js": "^9.14.0",
+        "@eslint/js": "^9.25.1",
         "@types/jest": "^29.5.14",
         "@types/node": "^22.7.8",
+        "@typescript-eslint/eslint-plugin": "^8.31.0",
+        "@typescript-eslint/parser": "^8.31.0",
         "commit-and-tag-version": "^12.5.0",
-        "eslint": "^9.14.0",
-        "globals": "^15.12.0",
+        "eslint": "^9.25.1",
+        "globals": "^15.15.0",
         "husky": "^9.1.7",
         "jest": "^29.7.0",
         "jest-fetch-mock": "^3.0.3",
@@ -57,7 +59,7 @@
         "prettier": "^3.4.1",
         "ts-jest": "^29.3.2",
         "typescript": "^5.8.3",
-        "typescript-eslint": "^8.13.0"
+        "typescript-eslint": "^8.31.0"
     },
     "dependencies": {
         "cross-fetch": "^3.1.4"
