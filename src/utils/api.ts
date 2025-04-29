@@ -1,24 +1,38 @@
 import crossFetch from "cross-fetch";
-import { IReportDefinition } from "./Report";
-import { version } from "./version";
+import { IReportDefinition } from "../Report";
+import { version } from "../version";
 
-interface IBuildPReviewReportResponse {
+export type TaskStatus =
+    | "CREATED"
+    | "SUCCESS"
+    | "FAILED"
+    | "RUNNING"
+    | "QUEUED"
+    | null;
+
+export interface IBuildReportResponse {
     taskID: string | null;
-    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED" | null;
-    error?: string | null;
+    status: TaskStatus;
 }
+
+export type IPreviewReportResponse = IBuildReportResponse;
 
 export interface ITaskStatusResponse {
-    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED" | null;
-    errorMessage: string | null;
+    status: TaskStatus;
 }
 
-export class HttpTransport {
+export interface IAPIError {
+    taskID: string | null;
+    status: TaskStatus;
+    error: string | object | null;
+}
+
+export class API {
     apiKey: string;
     fetch: typeof crossFetch;
 
     /**
-     * Constructor for HttpTransport
+     * Constructor for API
      * @param fetchInstance Optional user-provided fetch instance
      */
     constructor(apiKey: string, fetchInstance?: typeof crossFetch) {
@@ -39,17 +53,17 @@ export class HttpTransport {
 
     /**
      * Submits a build report task to the Hybiscus API for processing
-     * @param reportSchema Report schema
+     * @param reportJSON Report schema
      * @returns The task ID and task status
      */
-    async submitBuildReportJob(
-        reportSchema: IReportDefinition,
-    ): Promise<IBuildPReviewReportResponse> {
-        const res = await this.fetch(
+    async buildReport(
+        reportJSON: IReportDefinition,
+    ): Promise<IBuildReportResponse> {
+        const _response = await this.fetch(
             "https://api.hybiscus.dev/api/v1/build-report",
             {
                 method: "POST",
-                body: JSON.stringify(reportSchema),
+                body: JSON.stringify(reportJSON),
                 headers: {
                     "Content-Type": "application/json",
                     "X-API-KEY": this.apiKey,
@@ -57,14 +71,14 @@ export class HttpTransport {
                 },
             },
         );
-        const response = await res.json();
-        if (!res.ok) {
-            const errorMessage = response.detail ?? null;
-            return {
+        const response = await _response.json();
+        if (!_response.ok) {
+            const error = response.detail ?? null;
+            throw {
                 taskID: null,
                 status: "FAILED",
-                error: errorMessage,
-            };
+                error: error,
+            } as IAPIError;
         }
         return {
             taskID: response.task_id || null,
@@ -74,17 +88,17 @@ export class HttpTransport {
 
     /**
      * Submits a preview report task to the Hybiscus API for processing
-     * @param reportSchema Report schema
+     * @param reportJSON Report schema
      * @returns The task ID and task status
      */
-    async submitPreviewReportJob(
-        reportSchema: IReportDefinition,
-    ): Promise<IBuildPReviewReportResponse> {
-        const res = await this.fetch(
+    async previewReport(
+        reportJSON: IReportDefinition,
+    ): Promise<IPreviewReportResponse> {
+        const _response = await this.fetch(
             "https://api.hybiscus.dev/api/v1/preview-report",
             {
                 method: "POST",
-                body: JSON.stringify(reportSchema),
+                body: JSON.stringify(reportJSON),
                 headers: {
                     "Content-Type": "application/json",
                     "X-API-KEY": this.apiKey,
@@ -92,14 +106,14 @@ export class HttpTransport {
                 },
             },
         );
-        const response = await res.json();
-        if (!res.ok) {
+        const response = await _response.json();
+        if (!_response.ok) {
             const errorMessage = response.detail ?? null;
-            return {
+            throw {
                 taskID: null,
                 status: "FAILED",
                 error: errorMessage,
-            };
+            } as IAPIError;
         }
         return {
             taskID: response.task_id || null,
@@ -113,10 +127,9 @@ export class HttpTransport {
      * @returns Task status and any error message if task has failed
      */
     async getTaskStatus(taskID: string): Promise<ITaskStatusResponse> {
-        const res = await this.fetch(
+        const _response = await this.fetch(
             "https://api.hybiscus.dev/api/v1/get-task-status?" +
                 new URLSearchParams({
-                    api_key: this.apiKey,
                     task_id: taskID,
                 }),
             {
@@ -127,19 +140,21 @@ export class HttpTransport {
                 },
             },
         );
-
-        if (!res.ok) {
-            return {
+        if (!_response.ok) {
+            throw {
                 status: null,
-                errorMessage: "Error retrieving task status!",
-            };
+                error: "Error retrieving task status!",
+            } as IAPIError;
         }
-
-        const response = await res.json();
-
+        const response = await _response.json();
+        if (response.error_message !== null) {
+            throw {
+                status: null,
+                error: response.error_message,
+            } as IAPIError;
+        }
         return {
             status: response.status || null,
-            errorMessage: response.error_message || null,
         };
     }
 
@@ -153,22 +168,20 @@ export class HttpTransport {
         return new Promise((resolve, reject) => {
             const interval: ReturnType<typeof setInterval> = setInterval(
                 async () => {
-                    const { status, errorMessage } =
-                        await this.getTaskStatus(taskID);
-                    if (status === "SUCCESS") {
-                        clearInterval(interval);
-                        resolve({
-                            status,
-                            errorMessage,
-                        });
-                        return;
-                    } else if (status === "FAILED") {
+                    try {
+                        const { status } = await this.getTaskStatus(taskID);
+                        if (status === "SUCCESS") {
+                            clearInterval(interval);
+                            resolve({
+                                status,
+                            });
+                        }
+                    } catch (error) {
                         clearInterval(interval);
                         reject({
-                            status,
-                            errorMessage,
+                            status: null,
+                            error,
                         });
-                        return;
                     }
                 },
                 750,

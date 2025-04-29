@@ -4,17 +4,36 @@
 
 import { IReportDefinition, Report } from "./Report";
 import crossFetch from "cross-fetch";
-import { HttpTransport, ITaskStatusResponse } from "./HttpTransport";
+import { API, IAPIError } from "./utils/api";
 
-interface IPDFReport {
+export type TaskStatus =
+    | "CREATED"
+    | "SUCCESS"
+    | "FAILED"
+    | "RUNNING"
+    | "QUEUED"
+    | null;
+
+export interface IBuildReportRequest {
+    report?: Report | null;
+    reportJSON?: IReportDefinition | null;
+}
+export interface IBuildReportResponse {
     url: string | null;
     taskID: string | null;
-    status: "CREATED" | "SUCCESS" | "FAILED" | "RUNNING" | "QUEUED" | null;
-    errorMessage: string | null;
+    status: TaskStatus;
 }
 
+export interface IHybiscusClientError {
+    status: TaskStatus;
+    error: string | object | null;
+}
+
+export type IPreviewReportRequest = IBuildReportRequest;
+export type IPreviewReportResponse = IBuildReportResponse;
+
 class HybiscusClient {
-    api: HttpTransport;
+    api: API;
     apiKey: string;
 
     /**
@@ -23,7 +42,7 @@ class HybiscusClient {
      * @param fetchInstance Optional user-provided fetch instance
      */
     constructor(apiKey: string, fetchInstance?: typeof crossFetch) {
-        this.api = new HttpTransport(apiKey, fetchInstance);
+        this.api = new API(apiKey, fetchInstance);
         this.apiKey = apiKey;
     }
 
@@ -36,70 +55,39 @@ class HybiscusClient {
      */
     async buildReport({
         report = null,
-        reportSchema = null,
-    }: {
-        report?: Report | null;
-        reportSchema?: IReportDefinition | null;
-    }): Promise<IPDFReport> {
-        let status, taskID, errorMessage;
-        let reportDefinition: IReportDefinition = {} as IReportDefinition;
-        if (report !== null) {
-            reportDefinition = report.getDefinition();
-        } else if (reportSchema !== null) {
-            reportDefinition = reportSchema;
-        }
-        {
-            const response =
-                await this.api.submitBuildReportJob(reportDefinition);
-            status = response.status;
-            taskID = response.taskID;
-            errorMessage = response.error;
-        }
-        if (taskID !== null) {
-            const response = await this.api.getTaskStatus(taskID);
-            status = response?.status;
-            errorMessage = response?.errorMessage;
-            if (status === "FAILED") {
-                return {
-                    url: null,
-                    taskID,
-                    status: "FAILED",
-                    errorMessage: errorMessage || null,
-                };
-            } else if (status === "SUCCESS") {
+        reportJSON = null,
+    }: IBuildReportRequest): Promise<IBuildReportResponse> {
+        const reportDefinition = report?.getDefinition() || reportJSON;
+        try {
+            const buildReportResponse =
+                await this.api.buildReport(reportDefinition);
+            const taskID = buildReportResponse.taskID;
+            if (taskID === null) {
+                throw {
+                    status: null,
+                    error: "No task ID returned.",
+                } as IHybiscusClientError;
+            }
+            const taskStatusResponse = await this.api.getTaskStatus(taskID);
+            if (taskStatusResponse.status === "SUCCESS") {
                 return {
                     taskID,
                     url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
                     status: "SUCCESS",
-                    errorMessage: errorMessage || null,
                 };
             }
-            try {
-                const response = await this.api.waitForTaskSuccess(taskID);
-                status = response?.status;
-                errorMessage = response?.errorMessage;
-                return {
-                    taskID,
-                    url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
-                    status: "SUCCESS",
-                    errorMessage: errorMessage || null,
-                };
-            } catch (error) {
-                const errorResposne = error as ITaskStatusResponse;
-                return {
-                    url: null,
-                    taskID,
-                    status: "FAILED",
-                    errorMessage: errorResposne.errorMessage,
-                };
-            }
-        } else {
+            await this.api.waitForTaskSuccess(taskID);
             return {
-                url: null,
                 taskID,
-                status,
-                errorMessage: errorMessage || null,
+                url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
+                status: "SUCCESS",
             };
+        } catch (error) {
+            const errorResponse = error as IAPIError;
+            throw {
+                status: "FAILED",
+                error: errorResponse.error,
+            } as IHybiscusClientError;
         }
     }
 
@@ -113,69 +101,38 @@ class HybiscusClient {
      */
     async previewReport({
         report = null,
-        reportSchema = null,
-    }: {
-        report?: Report | null;
-        reportSchema?: IReportDefinition | null;
-    }): Promise<IPDFReport> {
-        let status, taskID, errorMessage;
-        let reportDefinition: IReportDefinition = {} as IReportDefinition;
-        if (report !== null) {
-            reportDefinition = report.getDefinition();
-        } else if (reportSchema !== null) {
-            reportDefinition = reportSchema;
-        }
-        {
-            const response =
-                await this.api.submitPreviewReportJob(reportDefinition);
-            status = response.status;
-            taskID = response.taskID;
-            errorMessage = response.error;
-        }
-        if (taskID !== null) {
-            const response = await this.api.getTaskStatus(taskID);
-            status = response?.status;
-            errorMessage = response?.errorMessage;
-            if (status === "FAILED") {
-                return {
-                    url: null,
-                    taskID,
-                    status: "FAILED",
-                    errorMessage: errorMessage || null,
-                };
-            } else if (status === "SUCCESS") {
+        reportJSON = null,
+    }: IPreviewReportRequest): Promise<IPreviewReportResponse> {
+        const reportDefinition = report?.getDefinition() || reportJSON;
+        try {
+            const previewReportResponse =
+                await this.api.previewReport(reportDefinition);
+            const taskID = previewReportResponse.taskID;
+            if (taskID === null) {
+                throw {
+                    status: previewReportResponse.status,
+                    error: "No task ID returned.",
+                } as IHybiscusClientError;
+            }
+            const taskStatusResponse = await this.api.getTaskStatus(taskID);
+            if (taskStatusResponse.status === "SUCCESS") {
                 return {
                     taskID,
                     url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
                     status: "SUCCESS",
-                    errorMessage: errorMessage || null,
                 };
             }
-            try {
-                const response = await this.api.waitForTaskSuccess(taskID);
-                status = response?.status;
-                errorMessage = response?.errorMessage;
-                return {
-                    taskID,
-                    url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
-                    status: "SUCCESS",
-                    errorMessage: errorMessage || null,
-                };
-            } catch (error) {
-                const errorResposne = error as ITaskStatusResponse;
-                return {
-                    url: null,
-                    taskID,
-                    status: "FAILED",
-                    errorMessage: errorResposne.errorMessage,
-                };
-            }
-        } else {
+            await this.api.waitForTaskSuccess(taskID);
             return {
-                url: null,
                 taskID,
-                status,
-                errorMessage: errorMessage || null,
+                url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${taskID}&api_key=${this.apiKey}`,
+                status: "SUCCESS",
+            };
+        } catch (error) {
+            const errorResponse = error as IAPIError;
+            throw {
+                status: "FAILED",
+                error: errorResponse.error,
             };
         }
     }

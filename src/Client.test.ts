@@ -21,6 +21,7 @@ describe("Testing Client", () => {
         const getResponse = {
             task_id: taskID,
             status: "SUCCESS",
+            error_message: null,
         };
         fetch
             .once(JSON.stringify(postResponse))
@@ -36,7 +37,6 @@ describe("Testing Client", () => {
         expect(result).toStrictEqual({
             taskID: getResponse.task_id,
             status: "SUCCESS",
-            errorMessage: null,
             url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${result.taskID}&api_key=${apiKey}`,
         });
     });
@@ -52,6 +52,7 @@ describe("Testing Client", () => {
         const getResponse = {
             task_id: taskID,
             status: "SUCCESS",
+            error_message: null,
         };
         fetch
             .once(JSON.stringify(postResponse))
@@ -62,11 +63,9 @@ describe("Testing Client", () => {
             report_byline: "Report byline",
         }).addComponent(new Text({ text: "Text component" }));
         const result = await client.previewReport({ report });
-
         expect(result).toStrictEqual({
             taskID: getResponse.task_id,
             status: "SUCCESS",
-            errorMessage: null,
             url: `https://api.hybiscus.dev/api/v1/get-report?task_id=${result.taskID}&api_key=${apiKey}`,
         });
     });
