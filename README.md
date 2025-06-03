@@ -1,3 +1,8 @@
+> [!NOTE]
+> This library is now deprecated in favour of [`@hybiscus/api`](https://github.com/hybiscus-dev/hybiscus-node-sdk). Please migrate to this library instead. Breaking changes from this library are detailed on the [repo](https://github.com/hybiscus-dev/hybiscus-node-sdk) page.
+
+---
+
 <div align="center">
     <a href="https://hybiscus.dev">
     <img width="40%" src="https://hybiscus.dev/public/img/Wordmark.svg" alt="Hybiscus logo"/>
